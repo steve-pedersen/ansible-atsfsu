@@ -1,0 +1,11 @@
+---
+# playbook for webserver tier
+
+- name: configure and deploy the webservers and application code
+  hosts:  webservers
+  remote_user:  root
+
+  roles:
+    - web
+
+...

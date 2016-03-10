@@ -1,0 +1,11 @@
+---
+# playbook for dbserver tier
+
+- name: deploy MySQL and configure the databases
+  hosts: dbservers
+  remote_user: root
+
+  roles:
+    - db
+
+...
