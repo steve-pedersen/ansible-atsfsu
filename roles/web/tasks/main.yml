@@ -1,0 +1,8 @@
+---
+# This playbook contains plays that will be run on all web group nodes.
+
+- include:  install-apt-packages.yml
+
+# run curl shell command
+
+# replace & add shib/idp files
