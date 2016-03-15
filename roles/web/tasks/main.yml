@@ -3,4 +3,5 @@
 
 - include:  install-packages.yml
 - include:  shibboleth.yml
+- include:  apache-modules.yml
 - include:  shell-commands.yml
