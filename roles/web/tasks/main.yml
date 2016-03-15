@@ -1,8 +1,11 @@
 ---
 # This playbook contains plays that will be run on all web group nodes.
 
-- include:  install-apt-packages.yml
+- name: apt-get update and upgrade
+  apt:  upgrade=yes update_cache=yes state=latest
 
-# run curl shell command
+- include:  install-packages.yml
+- include:  file-copy.yml
+- include:  shell-commands.yml
 
 # replace & add shib/idp files

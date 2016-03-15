@@ -1,0 +1,45 @@
+---
+#   Uses core package modules install packages.
+
+- name: install packages apache and php etc
+  apt:  name={{ item }} update_cache=yes state=latest 
+  with_items:
+    - apache2
+    - libapache2-mod-php5
+    - apache2-prefork-dev
+    - php5-curl
+    - php5-mcrypt
+    - php-pear
+    - php5-dev
+    - libcurl4-openssl-dev
+    - mailutils
+    - ntp
+    - cronolog
+    - git-core
+    - unzip
+    - zip
+    - munin-node
+    - libpcre3-dev
+    - php5-xmlrpc
+    - php5-xsl
+    - exim4
+    - exim4-config
+    - php5-intl
+    - make
+    - php5-pgsql
+    - postgresql
+    - shibboleth-sp2-schemas
+    - libshibsp-dev
+    - libshibsp-doc
+    - libapache2-mod-shib2
+    - opensaml2-tools
+    - clamav                    # for antivirus users
+    - nodejs
+
+- name: install nodesource via bash
+  shell: curl -sL https://deb.nodesource.com/setup | bash - 
+  args:
+    executable: /bin/bash
+
+- name: install less with npm
+  npm:  name=less global=yes state=latest

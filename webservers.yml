@@ -3,9 +3,9 @@
 
 - name: configure and deploy the webservers and application code
   hosts:  webservers
-  remote_user:  root
+  sudo: yes
+  gather_facts: no
+  remote_user: root
 
   roles:
     - web
-
-...

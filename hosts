@@ -1,0 +1,8 @@
+[webservers:children]
+fresca
+
+[fresca:children]
+fresca-test
+
+[fresca-test]
+fresca.test.at.sfsu.edu
