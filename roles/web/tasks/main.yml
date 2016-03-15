@@ -1,11 +1,6 @@
 ---
 # This playbook contains plays that will be run on all web group nodes.
 
-- name: apt-get update and upgrade
-  apt:  upgrade=yes update_cache=yes state=latest
-
 - include:  install-packages.yml
-- include:  file-copy.yml
+- include:  shibboleth.yml
 - include:  shell-commands.yml
-
-# replace & add shib/idp files

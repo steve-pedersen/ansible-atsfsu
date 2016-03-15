@@ -1,6 +1,9 @@
 ---
 #   Uses core package modules install packages.
 
+- name: apt-get update and upgrade
+  apt:  upgrade=yes update_cache=yes state=latest
+
 - name: install packages apache and php etc
   apt:  name={{ item }} update_cache=yes state=latest 
   with_items:

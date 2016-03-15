@@ -1,0 +1,37 @@
+---
+# replaces shibboleth files, adds IdP files and runs shib-keygen
+
+- name: replace shibboleth2.xml with own copy
+  copy: 
+    src:  /etc/shibboleth/shibboleth2.xml
+    dest: /etc/shibboleth/shibboleth2.xml 
+    owner:  root
+    group:  root
+    mode:   0644
+
+- name: replace attribute-map.xml with own copy
+  copy: 
+    src:  /etc/shibboleth/attribute-map.xml
+    dest: /etc/shibboleth/attribute-map.xml
+    owner:  root
+    group:  root
+    mode:   0644
+
+- name: add idp-nash-metadata.xml for test
+  copy:
+    content: ""  # for actual content use a template
+    dest:   /etc/shibboleth/idp-nash-metadata.xml
+    owner:  root
+    group:  root
+    mode:   0644
+
+- name: add idp-minkar-metadata.xml for production
+  copy:
+    content: ""  # for actual content use a template
+    dest:   /etc/shibboleth/idp-minkar-metadata.xml
+    owner:  root
+    group:  root
+    mode:   0644
+
+- name: shib-keygen
+  command:  shib-keygen
