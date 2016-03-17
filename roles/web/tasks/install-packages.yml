@@ -7,22 +7,22 @@
     - packages 
     - apt
 
+# apt_packages are defined in roles/web/vars/main.yml
 - name: install packages apache and php etc
-  apt:  name={{ item }} update_cache=yes state=latest 
-  with_items:
-    "{{ apt_packages }}"
+  apt:  name={{ item }} update_cache=yes state=latest
+  with_items: "{{ apt_packages }}"
   tags:
     - packages 
     - apt
 
 - name: get node from source
-  get_url: url=https://deb.nodesource.com/setup dest=/usr/nodesetup
+  get_url: url=https://deb.nodesource.com/setup dest=/usr/nodesource
   tags:
     - packages 
     - node
 
 - name: install nodesource via bash
-  shell: /usr/nodesetup | /bin/bash - 
+  shell: /usr/nodesource | /bin/bash - 
   tags:
     - packages 
     - node
@@ -40,5 +40,6 @@
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
   tags: 
+    - packages
     - pecl
     - pear

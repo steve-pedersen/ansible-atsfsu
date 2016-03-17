@@ -3,3 +3,4 @@
 
 - include:  install-packages.yml
 - include:  apache-modules.yml
+- include:  php-config.yml

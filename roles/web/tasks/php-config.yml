@@ -1,0 +1,49 @@
+---
+# configuration of PHP mods-available
+
+# Create mods-available configuration files
+- name: create opcache from template
+  template: src=opcache.j2 dest=/etc/php5/mods-available/opcache.ini
+  tags: mods-available
+
+- name: config timezone
+  template: src=timezone.j2 dest=/etc/php5/mods-available/timezone.ini
+  tags: mods-available
+
+- name: config pecl_http
+  template: src=pecl_http.j2 dest=/etc/php5/mods-available/pecl_http.ini
+  tags: mods-available
+
+- name: config memory limit
+  template: src=memory_limit.j2 dest=/etc/php5/mods-available/memory_limit.ini
+  tags: mods-available
+
+- name: config upload
+  template: src=upload.j2 dest=/etc/php5/mods-available/upload.ini
+  tags: mods-available
+
+
+# Enable PHP5 modules, chained together
+- name: enable php5 opcache module
+  shell: php5enmod opcache
+  register: op
+
+- name: enable php5 pecl_http module
+  shell: php5enmod pecl_http
+  register: pecl
+  when: op.rc == 0
+
+- name: enable php5 memory_limit module
+  shell: php5enmod memory_limit
+  register: mem
+  when: pecl.rc == 0
+
+- name: enable php5 upload module
+  shell: php5enmod upload
+  register: up
+  when: mem.rc == 0
+
+- name: enable php5 timezone module
+  shell: php5enmod timezone
+  register: time
+  when: up.rc == 0
