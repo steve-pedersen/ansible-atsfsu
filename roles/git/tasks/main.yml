@@ -1,0 +1,41 @@
+---
+# Playbook for git related actions
+
+
+# Setup SSH directories and keys
+- name: create ssh dir and set permissions
+  file: path=/root/.ssh state=directory mode=0700
+  tags: 
+    - ssh
+    - git
+
+- name: create ssh config file and set permissions
+  template: src=config.j2 dest=/root/.ssh/config  mode=0600
+  tags: 
+    - ssh
+    - git
+
+# Transfer ssh key
+#- name: transfer ssh key
+#  template: 
+
+- name: set permissions for deployer.git key
+  file: src=/root/.ssh/deployer.git state=file  mode=0600
+  tags: 
+    - ssh
+    - git
+
+
+# Clone framework repo
+- name: git clone of framework repo
+  git:  repo=git://git.at.sfsu.edu:framework.git  dest=/var/www/  clone=yes
+  tags:
+    - git
+    - framework
+
+# Clone application repo
+- name: git clone of fresca repo
+  git:  repo=git://git.at.sfsu.edu:fresca.git  dest=/var/www/  clone=yes
+  tags:
+    - git
+    - application

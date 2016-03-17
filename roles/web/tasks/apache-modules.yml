@@ -12,29 +12,3 @@
 - name: enable mod_ssl
   apache2_module: state=present name=ssl
   tags: apache_modules
-
-
-# - name: check if opcache exists
-#   stat: path=/etc/php5/mods-available/opcache.ini
-#   register: st
-
-- name: create opcache from template
-  template: src=opcache.j2 dest=/etc/php5/mods-available/opcache.ini
-  # when: not st.stat.exists
-  tags: mods-available
-
-- name: config timezone
-  template: src=timezone.j2 dest=/etc/php5/mods-available/timezone.ini
-  tags: mods-available
-
-- name: config pecl_http
-  template: src=pecl_http.j2 dest=/etc/php5/mods-available/pecl_http.ini
-  tags: mods-available
-
-- name: config memory limit
-  template: src=memory_limit.j2 dest=/etc/php5/mods-available/memory_limit.ini
-  tags: mods-available
-
-- name: config upload
-  template: src=upload.j2 dest=/etc/php5/mods-available/upload.ini
-  tags: mods-available
