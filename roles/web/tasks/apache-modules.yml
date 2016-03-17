@@ -3,9 +3,12 @@
 
 - name: enable mod_rewrite
   apache2_module: state=present name=rewrite
+  tags: apache_modules
 
 - name: enable mod_headers
   apache2_module: state=present name=headers
+  tags: apache_modules
 
 - name: enable mod_ssl
   apache2_module: state=present name=ssl
+  tags: apache_modules

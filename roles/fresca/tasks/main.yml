@@ -1,0 +1,10 @@
+---
+# main playbook for fresca related stuff
+
+- include: shibboleth.yml
+
+# - shell: echo "This is fresca production"
+#   when: fresca_production
+
+# - shell: echo "This is fresca test"
+#   when: fresca_test

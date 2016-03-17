@@ -1,3 +1,6 @@
 ---
 # main handler for tasks performed from the web role
 
+- name: remove nodesource file
+  file: path=/usr/nodesetup state=absent
+  tags: node

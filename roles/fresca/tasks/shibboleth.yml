@@ -8,6 +8,8 @@
     owner:  root
     group:  root
     mode:   0644
+  when: not test
+  tags: shibboleth
 
 - name: replace attribute-map.xml with own copy
   copy: 
@@ -16,6 +18,8 @@
     owner:  root
     group:  root
     mode:   0644
+  when: not test
+  tags: shibboleth
 
 - name: add idp-nash-metadata.xml for test
   copy:
@@ -24,6 +28,8 @@
     owner:  root
     group:  root
     mode:   0644
+  when: not test
+  tags: shibboleth
 
 - name: add idp-minkar-metadata.xml for production
   copy:
@@ -32,6 +38,10 @@
     owner:  root
     group:  root
     mode:   0644
+  when: not test
+  tags: shibboleth
 
 - name: shib-keygen
   command:  shib-keygen
+  when: not test
+  tags: shibboleth

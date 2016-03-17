@@ -2,6 +2,4 @@
 # This playbook contains plays that will be run on all web group nodes.
 
 - include:  install-packages.yml
-- include:  shibboleth.yml
 - include:  apache-modules.yml
-- include:  shell-commands.yml

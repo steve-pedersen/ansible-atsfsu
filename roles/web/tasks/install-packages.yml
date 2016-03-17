@@ -3,46 +3,42 @@
 
 - name: apt-get update and upgrade
   apt:  upgrade=yes update_cache=yes state=latest
+  tags:
+    - packages 
+    - apt
 
 - name: install packages apache and php etc
   apt:  name={{ item }} update_cache=yes state=latest 
   with_items:
-    - apache2
-    - libapache2-mod-php5
-    - apache2-prefork-dev
-    - php5-curl
-    - php5-mcrypt
-    - php-pear
-    - php5-dev
-    - libcurl4-openssl-dev
-    - mailutils
-    - ntp
-    - cronolog
-    - git-core
-    - unzip
-    - zip
-    - munin-node
-    - libpcre3-dev
-    - php5-xmlrpc
-    - php5-xsl
-    - exim4
-    - exim4-config
-    - php5-intl
-    - make
-    - php5-pgsql
-    - postgresql
-    - shibboleth-sp2-schemas
-    - libshibsp-dev
-    - libshibsp-doc
-    - libapache2-mod-shib2
-    - opensaml2-tools
-    - clamav                    # for antivirus users
-    - nodejs
+    "{{ apt_packages }}"
+  tags:
+    - packages 
+    - apt
+
+- name: get node from source
+  get_url: url=https://deb.nodesource.com/setup dest=/usr/nodesetup
+  tags:
+    - packages 
+    - node
 
 - name: install nodesource via bash
-  shell: curl -sL https://deb.nodesource.com/setup | bash - 
-  args:
-    executable: /bin/bash
+  shell: /usr/nodesetup | /bin/bash - 
+  tags:
+    - packages 
+    - node
+  notify: remove nodesource file
 
 - name: install less with npm
   npm:  name=less global=yes state=latest
+  tags:
+    - packages 
+    - npm
+
+- name: install pecl_http-1.7.6
+  shell: "yes \"\" | pecl install pecl_http-1.7.6"
+  register: pecl_result
+  changed_when: "pecl_result.rc == 0"
+  failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
+  tags: 
+    - pecl
+    - pear
