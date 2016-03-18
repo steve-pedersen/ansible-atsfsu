@@ -1,7 +1,10 @@
 ---
 # main playbook for fresca related stuff
 
-- include: shibboleth.yml
+#- include: shibboleth.yml
+#- include: ssh.yml
+#- include: git.yml
+#- include: postgres.yml
 
 # - shell: echo "This is fresca production"
 #   when: fresca_production

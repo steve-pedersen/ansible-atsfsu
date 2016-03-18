@@ -23,27 +23,18 @@
   tags: mods-available
 
 
-# Enable PHP5 modules, chained together
+# Enable PHP5 modules
 - name: enable php5 opcache module
   shell: php5enmod opcache
-  register: op
 
 - name: enable php5 pecl_http module
   shell: php5enmod pecl_http
-  register: pecl
-  when: op.rc == 0
 
 - name: enable php5 memory_limit module
   shell: php5enmod memory_limit
-  register: mem
-  when: pecl.rc == 0
 
 - name: enable php5 upload module
   shell: php5enmod upload
-  register: up
-  when: mem.rc == 0
 
 - name: enable php5 timezone module
   shell: php5enmod timezone
-  register: time
-  when: up.rc == 0

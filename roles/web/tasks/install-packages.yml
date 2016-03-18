@@ -43,3 +43,24 @@
     - packages
     - pecl
     - pear
+
+- name: create smarty directory
+  file: path=/usr/share/php/smarty state=directory mode=0755
+
+- name: install smarty
+  unarchive: src=https://github.com/smarty-php/smarty/archive/v2.6.29.tar.gz dest=/usr/share/php/smarty copy=no
+  tags:
+    - packages 
+    - smarty
+
+- name: move smarty files
+  command: cp -R /usr/share/php/smarty/smarty-2.6.29/libs/. /usr/share/php/smarty
+  tags:
+    - packages 
+    - smarty
+
+- name: remove smarty install
+  file: path=/usr/share/php/smarty/smarty-2.6.29 state=absent
+  tags:
+    - packages 
+    - smarty
