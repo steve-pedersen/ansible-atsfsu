@@ -2,7 +2,9 @@
 # Playbook for ssh/git related actions
 
 
-# Setup SSH directories and keys
+#
+# SSH
+#
 - name: create ssh dir and set permissions
   file: path=/root/.ssh state=directory mode=0700
   tags: 
@@ -17,16 +19,22 @@
 
 # Transfer ssh key
 - name: copy ssh key to remote node
-  copy: src=/root/.ssh/deployer.git dest=/root/.ssh/deployer.git  mode=0600
+  copy: src=~/.ssh/deployer.git dest=/root/.ssh/deployer.git  mode=0600
   tags: 
     - ssh
     - git
 
+#
+# Git
+#
+- name: remove the framework directory
+  file: path=/var/www/framework state=absent force=yes
+  tags:
+    - git
+    - framework
 
-
-# Clone framework repo
 - name: git clone of framework repo
-  git:  repo=git://git.at.sfsu.edu:framework.git  dest=/var/www/  clone=yes
+  git:  repo=git@git.at.sfsu.edu:framework.git  dest=/var/www/framework  clone=yes accept_hostkey=yes
   tags:
     - git
     - framework
