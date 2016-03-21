@@ -1,13 +1,182 @@
-<VirtualHost *:{{ apache_listen_port }}>
-    ServerName {{ item.hostname }}
+{
+    "appName":"CSU Fresca",
+    "appKey": "1fee9182-f5a0-4a8e-aa5a-9e608b9283e9",
+    "analyticsTrackingCode": "UA-233205-5",
+    "colophon": "\/var\/www\/catalog\/var\/colophon.conf",
+    "siteNotice": "",
+    "contactEmail": "fresca@calstate.edu",
+    "contactPhone": "(415) 405-2195",
+    
+    "paths": {
+        "app": {
+            "base": "\/var\/www\/catalog",
+            "web": "public",
+            "var": "var",
+            "searchIndex": "var\/xapian"
+        }
+    },
+    
+    "impl": {
+        "masterTemplate": "Catalog_Master_Template",
+        "userContext": "Catalog_Master_UserContext"
+    },
+    
+    "identityProviders": {
+        "csum": {
+            "displayName": "California Maritime Academy",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "calpoly": {
+            "displayName": "California Polytechnic State University",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "pomona": {
+            "displayName": "California State Polytechnic University, Pomona",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "csub": {
+            "displayName": "California State University, Bakersfield",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "csuci": {
+            "displayName": "California State University, Channel Islands",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUC": {
+            "displayName": "California State University, Chico",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUDH": {
+            "displayName": "California State University, Dominguez Hills",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUEB-shib": {
+            "displayName": "California State University, East Bay",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://vince.csueastbay.edu/idp/shibboleth"
+        },
+        "FSU": {
+            "displayName": "California State University, Fresno",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUF": {
+            "displayName": "California State University, Fullerton",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSULB": {
+            "displayName": "California State University, Long Beach",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSULB-shib": {
+            "displayName": "California State University, Long Beach (Shibboleth)",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://its-shib.its.csulb.edu/idp/shibboleth",
+            "hidden": true,
+            "debug": true
+        },
+        "CSULA": {
+            "displayName": "California State University, Los Angeles",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUMB": {
+            "displayName": "California State University, Monterey Bay",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUN": {
+            "displayName": "California State University, Northridge",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUS": {
+            "displayName": "California State University, Sacramento",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUSB-shib": {
+            "displayName": "California State University, San Bernardino",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://idp.csusb.edu/idp/shibboleth"
+        },
+        "CSUSM": {
+            "displayName": "California State University, San Marcos",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "CSUSt": {
+            "displayName": "California State University, Stanislaus",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "chancellor": {
+            "displayName": "CSU Chancellor's Office",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "HSU": {
+            "displayName": "Humboldt State University",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "MLML": {
+            "displayName": "Moss Landing Marine Laboratories",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "SDSU": {
+            "displayName": "San Diego State University",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "sfsu-shib": {
+            "displayName": "San Francisco State University",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "globalLogoutUrl": "https://idp.sfsu.edu/idp/logout.jsp",
+            "entityId": "https://idp.sfsu.edu/idp/shibboleth"
+        },
+        "SJSU": {
+            "displayName": "San Jose State University",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "SSU-shib": {
+            "displayName": "Sonoma State University",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://login.sonoma.edu/shibboleth"
+        },
+  "external": {
+           "impl": "Bss_PasswordAuthentication_IdentityProvider",
+           "hidden": true
+       }
+    },
+    
+    "mail": {
+        "from": "csu.fresca@gmail.com",
+        "fromName": "CSU Fresca",
+        "method": "mail"
+    },
+    
+    "dataSources": {
+        "default": {
+            "connectionType": "pgsql",
+            "dsn": "dbname=fresca user=apps"
+        }
+    },
+    
+    "authorizationSourceList": {
+        "default": {
+            "className": "Bss_AuthZ_CachePermissionSource",
+            "source": {
+                "className": "Bss_AuthZ_PersistentPermissionSource"
+            }
+        }
+    },
+    "modules": {
+        "bss:core:authN": {
+            "manageAccounts": { "template": "module:csu:catalog:authN/manageAccounts.html.tpl" }
+        }
+    },
+    
+    "templates": {
+        "bss:core:password": {
+            "acceptPassword": "csu:catalog:authN/acceptPassword"
+        }
+    },
 
-    ServerAdmin webmaster@localhost
-    DocumentRoot {{ item.docroot }}
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    <Directory {{ item.docroot }}>
-        Require all granted
-    </Directory>
-</VirtualHost>
+    "blog": {
+      "feedUrl": "http://blogs.calstate.edu/rip/?feed=rss2"
+    },  
+      
+    "moduleSearchPaths": ["\/var\/www\/framework\/bss\/modules","\/var\/www\/catalog\/modules"],
+    "runMode":0
+}

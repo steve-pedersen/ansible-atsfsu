@@ -1,0 +1,6 @@
+<?php
+// ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . '/var/opt/framework/');
+// define('BSS_APP_CONFIG_FILE', '/var/dsp/app.conf');
+define('BSS_FWK_PATH', '/var/www/framework');
+define('BSS_APP_CONFIG_FILE', '/var/www/catalog/var/app.conf');
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . BSS_FWK_PATH);
