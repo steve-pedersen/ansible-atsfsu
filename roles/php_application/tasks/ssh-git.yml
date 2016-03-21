@@ -1,5 +1,5 @@
 ---
-# Playbook for git related actions
+# Playbook for ssh/git related actions
 
 
 # Setup SSH directories and keys
@@ -16,17 +16,12 @@
     - git
 
 # Transfer ssh key
-# - name: copy ssh key to remote node
-#   copy: 
-#   tags: 
-#     - ssh
-#     - git
-
-- name: set permissions for deployer.git key
-  file: src=/root/.ssh/deployer.git state=file  mode=0600
+- name: copy ssh key to remote node
+  copy: src=/root/.ssh/deployer.git dest=/root/.ssh/deployer.git  mode=0600
   tags: 
     - ssh
     - git
+
 
 
 # Clone framework repo
@@ -35,10 +30,3 @@
   tags:
     - git
     - framework
-
-# Clone application repo
-- name: git clone of fresca repo
-  git:  repo=git://git.at.sfsu.edu:fresca.git  dest=/var/www/  clone=yes
-  tags:
-    - git
-    - application

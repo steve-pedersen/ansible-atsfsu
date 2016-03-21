@@ -1,17 +1,10 @@
 ---
-# Git related plays for Fresca
+# Git related tasks for Fresca
 
-
-# Clone framework repo
-- name: git clone of framework repo
-  git:  repo=git://git.at.sfsu.edu:framework.git  dest=/var/www/  clone=yes
-  tags:
-    - git
-    - framework
 
 # Clone application repo
 - name: git clone of fresca repo
   git:  repo=git://git.at.sfsu.edu:fresca.git  dest=/var/www/  clone=yes
   tags:
     - git
-    - application
+    - fresca

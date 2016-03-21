@@ -1,11 +1,13 @@
 ---
-# playbook for webserver tier
+# Playbook for deployment of PHP application
+# Deploy can be for test and/or production
 
 - name: configure and deploy the webservers and application code
   hosts:  webservers
   gather_facts: no
-  become: root
+  become: yes
+  become_user:  root
 
-  roles:
-    - web
-    - fresca
+  roles:    
+    - php_application   # general tasks to be completed by all PHP Framework applications    
+    - { role: fresca, when: fresca }    # fresca site specific tasks
