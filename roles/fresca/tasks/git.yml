@@ -2,9 +2,14 @@
 # Git related tasks for Fresca
 
 
-# Clone application repo
-- name: git clone of fresca repo
-  git:  repo=git://git.at.sfsu.edu:fresca.git  dest=/var/www/  clone=yes
+- name: remove the catalog directory
+  file: path=/var/www/catalog state=absent force=yes
+  tags:
+    - git
+    - fresca
+
+- name: git clone of framework repo
+  git:  repo=git@git.at.sfsu.edu:fresca.git  dest=/var/www/catalog clone=yes accept_hostkey=yes
   tags:
     - git
     - fresca

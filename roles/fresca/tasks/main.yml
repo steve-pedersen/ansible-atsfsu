@@ -1,13 +1,9 @@
 ---
-# main playbook for fresca related stuff
+# Playbook for Fresca
+
 
 #- include: shibboleth.yml
-#- include: ssh.yml
-#- include: git.yml
-#- include: postgres.yml
+- include: git.yml          # clone fresca repo
+- include: config.yml       # fresca.conf, enable site, colophon
+- include: postgres.yml     
 
-# - shell: echo "This is fresca production"
-#   when: fresca_production
-
-# - shell: echo "This is fresca test"
-#   when: fresca_test
