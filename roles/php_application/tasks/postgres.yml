@@ -39,6 +39,6 @@
   with_items:
     - libpq-dev
     - python-psycopg2
-  when: python_prereqs|changed
+  when: python_prereqs|changed and not fresca
   tags:
     - packages  

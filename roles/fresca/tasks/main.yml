@@ -3,7 +3,9 @@
 
 
 #- include: shibboleth.yml
-- include: git.yml          # clone fresca repo
-- include: config.yml       # fresca.conf, enable site, colophon
-- include: postgres.yml     
+- include: git.yml                # clone fresca repo
+#- include: modules.yml            # fresca specific modules
+- include: virtualhosts.yml       # fresca.conf, disable defaults, enable site
+- include: postgres.yml           # createdb
+- include: config.yml             # remaining tasks
 

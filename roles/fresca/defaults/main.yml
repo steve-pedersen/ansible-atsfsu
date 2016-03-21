@@ -1,0 +1,9 @@
+---
+# default values for fresca
+
+apache_listen_port: 80
+apache_virtualhosts: 
+  - fresca_test:
+    name: fresca
+    hostname: fresca.test.at.sfsu.edu
+    docroot: /var/www

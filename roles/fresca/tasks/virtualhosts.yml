@@ -1,0 +1,35 @@
+---
+# Playbook for Fresca configuration tasks
+
+
+- name: setup virtualhosts
+  template: >
+    src=fresca.conf.j2
+    dest=/etc/apache2/sites-available/{{ item.name }}.conf
+    owner=root
+    group=root
+    mode=0644
+  with_items: "{{ apache_virtualhosts }}"
+  when: apache_virtualhosts|length > 0
+  tags: vhost
+
+# - name: copy fresca.conf virtualhost file
+#   template: src=fresca.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
+
+# - name: Remove default virtualhosts
+#   file: >
+#     name={{ item }}
+#     state=absent
+#   with_items:
+#     - /etc/apache2/sites-available/000-default.conf
+#     - /etc/apache2/sites-available/default-ssl.conf
+#     - /etc/apache2/sites-enabled/000-default.conf
+#   notify: restart apache
+
+- name: disable 000-default
+  shell: a2dissite 000-default.conf
+  tags: vhost
+
+- name: enable fresca virtualhost file
+  shell: a2ensite fresca.conf
+  tags: vhost

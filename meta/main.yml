@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Steve Pedersen
+  description: 
+  company: Academic Technology
+  license: BSD
+  min_ansible_version: 2.0
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+
+  categories:
+  - test
+  - production
+
+  dependencies: []
