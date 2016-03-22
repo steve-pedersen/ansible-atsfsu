@@ -1,6 +1,7 @@
 ---
 # Playbook for initial setup of postgres
 
+
 # Ansible requires these modules on remote node in order to user postgres
 - name: install prerequisites for postgres to be setup by ansible
   apt: name={{ item }} update_cache=yes state=latest
@@ -11,12 +12,12 @@
   tags:
     - packages
 
-#- debug: var=python_prereqs.results[0].cache_updated
 
 - name: add postgreSQL generic user with name apps
   postgresql_user: name=apps role_attr_flags=SUPERUSER
   become: true
   become_user: postgres
+  notify: restart postgres
 
 - name: establish trust relationship for generic user
   lineinfile: 
@@ -25,6 +26,7 @@
     state: present
     insertafter: EOF
     backup: yes
+  notify: restart postgres
 
 - name: revoke local access to database by removing local all all peer
   lineinfile: 
@@ -32,6 +34,8 @@
     regexp: (local   all             all                                     peer)
     state: absent
     backup: yes
+  notify: restart postgres
+
 
 # Manual removal of these packages. they are not needed
 - name: uninstall python modules used by ansible for postgres plays

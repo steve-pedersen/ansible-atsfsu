@@ -1,6 +1,16 @@
 ---
 # main handler for tasks performed from the web role
 
+
 - name: remove nodesource file
   file: path=/usr/nodesource state=absent
   tags: node
+
+- name: restart postgres
+  service: name=postgresql state=restarted
+
+- name: restart shibd
+  service: name=shibd state=restarted
+
+- name: restart apache2
+  service: name=apache2 state=restarted

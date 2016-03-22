@@ -9,4 +9,4 @@
   template: src=fresca.conf.j2 dest=/var/www/catalog/var/app.conf mode=0755
 
 - name: copy colophon
-  template: src=colophon.conf.j2 dest=/var/www/catalog/var/app.conf mode 0664
+  template: src=colophon.conf.j2 dest=/var/www/catalog/var/app.conf mode=0664
