@@ -1,7 +1,9 @@
 ---
-# configuration of PHP mods-available
+# Configuration of PHP mods-available
+
 
 # Create mods-available configuration files
+# TODO: look for a way to insert a template at EOF, if file exists -- (lineinfile module)
 - name: create opcache from template
   template: src=opcache.j2 dest=/etc/php5/mods-available/opcache.ini
   tags: mods-available
