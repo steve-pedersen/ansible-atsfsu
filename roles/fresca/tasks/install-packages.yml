@@ -1,0 +1,15 @@
+---
+# Fresca specific packages
+
+
+- name: apt-get update and upgrade
+  apt:  upgrade=yes update_cache=yes state=latest
+  notify: restart apache2
+  tags: fresca-packages
+
+# fresca_packages are defined in roles/fresca/vars/main.yml
+- name: install fresca dependencies
+  apt:  name={{ item }} update_cache=yes state=latest
+  with_items: "{{ fresca_packages }}"
+  notify: restart apache2
+  tags: fresca-packages

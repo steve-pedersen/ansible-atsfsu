@@ -1,0 +1,11 @@
+---
+
+fresca_packages:
+  - php5-gd
+  - imagemagick
+  - php5-imagick
+  - markdown
+  - libmarkdown-php
+  - php5-xapian
+  - xapian-tools
+  - libxapian-dev
