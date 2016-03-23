@@ -19,29 +19,41 @@
 #
 
 - name: build xapian-bindings dependencies
-  shell: apt-get build-dep -y xapian-bindings
-  register: build_result
-  ignore_errors: True
+  shell: apt-get build-dep -y xapian-bindings warn=no
+  register: build_bindings
   tags: [fresca, fresca-packages, xapian]
 
-- name: failed: build xapian-bindings dependencies
-  fail: msg="the command failed"
-  when: "'FAILED' in build_result.stderr"
+# - debug: var=build_bindings.warnings
+#   tags: xapian
+
+# xapian_dependencies are defined in roles/fresca/vars/main.yml
+- name: install xapian dependencies
+  apt:  name={{ item }} update_cache=yes state=latest
+  with_items: "{{ xapian_dependencies }}"
+  notify: restart apache2
   tags: [fresca, fresca-packages, xapian]
 
+- name: get xapian-bindings source
+  shell: apt-get source xapian-bindings warn=no
+  register: bindings_source
+  tags: [fresca, fresca-packages, xapian]
+
+- debug: var=build_bindings
+  tags: [fresca, xapian]
+
+- debug: var=bindings_source
+  tags: [fresca, xapian]
+##
+#**********************************************************************
+# google this https://packages.debian.org/source/sid/xapian-bindings
 
 
 
 
 
 
-# # xapian_dependencies are defined in roles/fresca/vars/main.yml
-# - name: install xapian dependencies
-#   apt:  name={{ item }} update_cache=yes state=latest
-#   with_items: "{{ xapian_dependencies }}"
-#   notify: restart apache2
-#   tags: [fresca, fresca-packages, xapian]
 
+#
 # # download and unpack xapian packages
 # - name: download and unpack xapian core
 #   unarchive: 
