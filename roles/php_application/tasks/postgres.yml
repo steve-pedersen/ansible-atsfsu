@@ -22,7 +22,7 @@
 - name: establish trust relationship for generic user
   lineinfile: 
     dest: /etc/postgresql/9.3/main/pg_hba.conf
-    line: "\nlocal\tall\t\tapps\t\t\t\t\ttrust\nhost\tall\t\tapps\t\t127.0.0.1/0\t\tmd5"
+    line: "local\tall\t\tapps\t\t\t\t\ttrust\nhost\tall\t\tapps\t\t127.0.0.1/0\t\tmd5"
     state: present
     insertafter: EOF
     backup: yes

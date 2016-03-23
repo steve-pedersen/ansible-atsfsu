@@ -5,12 +5,12 @@
 
 - name: copy fresca.conf virtualhost file
   template: src=fresca.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
-  tags: vhost
+  tags: [fresca, vhost]
 
 - name: disable 000-default
   shell: a2dissite 000-default.conf
-  tags: vhost
+  tags: [fresca, vhost]
 
 - name: enable fresca virtualhost file
   shell: a2ensite fresca.conf
-  tags: vhost
+  tags: [fresca, vhost]

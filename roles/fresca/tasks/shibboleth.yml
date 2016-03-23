@@ -9,7 +9,7 @@
     group:  root
     mode:   0644
   when: not test
-  tags: shibboleth
+  tags: [fresca, shibboleth]
 
 - name: replace attribute-map.xml with own copy
   copy: 
@@ -19,7 +19,7 @@
     group:  root
     mode:   0644
   when: not test
-  tags: shibboleth
+  tags: [fresca, shibboleth]
 
 - name: add idp-nash-metadata.xml for test
   copy:
@@ -29,7 +29,7 @@
     group:  root
     mode:   0644
   when: not test
-  tags: shibboleth
+  tags: [fresca, shibboleth]
 
 - name: add idp-minkar-metadata.xml for production
   copy:
@@ -44,4 +44,4 @@
 - name: shib-keygen
   command:  shib-keygen
   when: not test
-  tags: shibboleth
+  tags: [fresca, shibboleth]

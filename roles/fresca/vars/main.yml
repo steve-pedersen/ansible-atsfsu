@@ -6,6 +6,12 @@ fresca_packages:
   - php5-imagick
   - markdown
   - libmarkdown-php
-  - php5-xapian
-  - xapian-tools
-  - libxapian-dev
+  - gcc
+  # - xapian-tools
+  # - libxapian-dev
+
+xapian_dependencies:
+  - gcc
+  - g++
+  - build-essential
+  - uuid-dev
