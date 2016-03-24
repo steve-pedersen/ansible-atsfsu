@@ -2,12 +2,21 @@
 # Playbook for deployment of PHP application
 # Deploy can be for test and/or production
 
-- name: configure and deploy the webservers and application code
+- name: configure and deploy webservers that host PHP applications
   hosts:  webservers
   gather_facts: no
   become: yes
   become_user:  root
 
   roles:    
-    - php_application   # general tasks to be completed by all PHP Framework applications    
-    - { role: fresca, when: fresca }    # fresca site specific tasks
+    - php_app   # general tasks to be completed by all PHP Framework applications    
+
+
+- name: configure and deploy the Fresca Test application
+  hosts:  fresca-test
+  gather_facts: no
+  become: yes
+  become_user:  root
+
+  roles:      
+    - { role: fresca, when: fresca and test }    # fresca site specific tasks
