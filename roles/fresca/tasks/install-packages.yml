@@ -15,101 +15,52 @@
 
 
 #
-# Xapian - build binary packages from source: php5-xapian
+# Xapian - build binary packages from source in order to install php5-xapian
 #
-
 - name: build xapian-bindings dependencies
   shell: apt-get build-dep -y xapian-bindings warn=no
-  register: build_bindings
   tags: [fresca, fresca-packages, xapian]
 
-# - debug: var=build_bindings.warnings
-#   tags: xapian
-
-# xapian_dependencies are defined in roles/fresca/vars/main.yml
 - name: install xapian dependencies
   apt:  name={{ item }} update_cache=yes state=latest
   with_items: "{{ xapian_dependencies }}"
   notify: restart apache2
   tags: [fresca, fresca-packages, xapian]
 
-- name: get xapian-bindings source
-  shell: apt-get source xapian-bindings warn=no
-  register: bindings_source
+- name: clear any pre-existing xapian dir in root folder
+  file: path=~/xapian state=absent
   tags: [fresca, fresca-packages, xapian]
 
-- debug: var=build_bindings
-  tags: [fresca, xapian]
+- name: create xapian dir to work in
+  file: path=~/xapian state=directory mode=0755
+  tags: [fresca, fresca-packages, xapian]
 
-- debug: var=bindings_source
-  tags: [fresca, xapian]
-##
-#**********************************************************************
-# google this https://packages.debian.org/source/sid/xapian-bindings
+- name: get xapian-bindings from source
+  shell:  cd ~/xapian && apt-get source xapian-bindings warn=no
+  tags: [fresca, fresca-packages, xapian]
 
+- name: remove debian control and stamp files
+  shell:  cd ~/xapian/xapian-bindings-1.2.* && rm -f debian/control debian/*-stamp
+  tags: [fresca, fresca-packages, xapian]
 
+- name: alter files in debian folder to permit php bindings
+  shell:  "cd ~/xapian/xapian-bindings-1.2.* && echo php > debian/bindings-to-package"
+  tags: [fresca, fresca-packages, xapian]
 
+- name: alter env values then pipe php values into package
+  shell:  "cd ~/xapian/xapian-bindings-1.2.* && env PHP_VERSIONS=5 debian/rules maint && sed -i '/^X-Dummy:/d' debian/control"
+  tags: [fresca, fresca-packages, xapian]
 
+- name: build the php5-xapian debian package (this may take a couple minutes)
+  shell:  "cd ~/xapian/xapian-bindings-1.2.* && env DEB_BUILD_OPTIONS=nocheck debuild -e PHP_VERSIONS=5 -us -uc"
+  tags: [fresca, fresca-packages, xapian]
 
-
-
+- name: install the php5-xapian package we just built!
+  shell:  "cd ~/xapian && dpkg -i php5-xapian_*.deb"
+  notify: restart apache2
+  register: php_xapian
+  tags: [fresca, fresca-packages, xapian]
 #
-# # download and unpack xapian packages
-# - name: download and unpack xapian core
-#   unarchive: 
-#     src: http://oligarchy.co.uk/xapian/1.2.21/xapian-core-1.2.21.tar.xz
-#     dest: /tmp
-#     copy: no
-#   tags: [fresca, fresca-packages, xapian]
+# End of Xapian install
+#
 
-# - name: download and unpack xapian omega
-#   unarchive: 
-#     src: http://oligarchy.co.uk/xapian/1.2.21/xapian-omega-1.2.21.tar.xz
-#     dest: /tmp
-#     copy: no
-#   tags: [fresca, fresca-packages, xapian]
-
-# - name: download and unpack xapian bindings
-#   unarchive: 
-#     src: http://oligarchy.co.uk/xapian/1.2.21/xapian-bindings-1.2.21.tar.xz
-#     dest: /tmp
-#     copy: no
-#   tags: [fresca, fresca-packages, xapian]
-
-# # compile and install the xapian packages, chains the commands together
-# - name: compile/install xapian-core
-#   shell: ./configure chdir=/tmp/xapian-core-1.2.21
-# - command: make chdir=/tmp/xapian-core-1.2.21
-# - command: make install chdir=/tmp/xapian-core-1.2.21
-#   notify: restart apache2
-#   tags: [fresca, fresca-packages, xapian]
-
-# - name: compile/install xapian-omega
-#   command: ./configure XAPIAN_CONFIG=/tmp/xapian-core-1.2.21/xapian-config.in                                                     
-#   args:                                                                     
-#     chdir: /tmp/xapian-omega-1.2.21
-#   async: 10                                                                 
-#   poll: 1
-# - command: make chdir=/tmp/xapian-omega-1.2.21
-# - command: make install chdir=/tmp/xapian-omega-1.2.21
-#   notify: restart apache2
-#   tags: [fresca, fresca-packages, xapian]
-
-# - name: compile/install xapian-bindings
-#   shell: ./configure --with-php XAPIAN_CONFIG=/tmp/xapian-core-1.2.21/xapian-config.in
-#   args:
-#     chdir: /tmp/xapian-bindings-1.2.21
-# - command: make chdir=/tmp/xapian-bindings-1.2.21
-# - command: make install chdir=/tmp/xapian-bindings-1.2.21
-#   notify: restart apache2
-#   tags: [fresca, fresca-packages, xapian]
-
-# - name: add xapian to mods-available
-#   copy:
-#     content: "extension=xapian.so"
-#     dest: /etc/php5/mods-available/xapian.ini
-#   notify: restart apache2
-#   tags: [fresca, fresca-packages, xapian]
-
-# - name: restart apache
-#   service: name=apache2 state=restarted
