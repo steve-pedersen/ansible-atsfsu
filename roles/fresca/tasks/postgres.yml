@@ -1,6 +1,17 @@
 ---
 # Tasks for Fresca database
 
+# Ansible requires these modules on remote node in order to user postgres
+- name: install prerequisites for postgres to be setup by ansible
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - libpq-dev
+    - python-psycopg2
+  register: python_prereqs
+  tags: pg-packages
+
+- name: dropDB first
+  postgresql_db: name=fresca login_user=apps state=absent
 
 - name: create fresca database
   postgresql_db:

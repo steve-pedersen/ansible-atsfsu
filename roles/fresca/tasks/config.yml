@@ -8,5 +8,12 @@
 - name: copy app.conf file
   template: src=fresca.conf.j2 dest=/var/www/catalog/var/app.conf mode=0755
 
-- name: copy colophon
-  template: src=colophon.conf.j2 dest=/var/www/catalog/var/colophon.conf mode=0664
+# - name: copy htaccess file
+#   template: src=htaccess.j2 dest="/var/www/catalog/public/.htaccess" mode=0644
+
+# - name: copy colophon
+#   template: src=colophon.conf.j2 dest=/var/www/catalog/var/colophon.conf mode=0664
+
+- name: update var directory permissions
+  command: chmod -R 0777 /var/www/catalog/var warn=no
+  #notify: run scan
