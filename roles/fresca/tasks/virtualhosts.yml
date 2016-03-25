@@ -2,31 +2,27 @@
 # Playbook for Apache-Fresca virtual host configuration
 - include_vars: secrets.yml
 
+
 # Copy SSL certs
 - name: copy SSLCertificateFile
   copy: 
     content: "{{ cert_file }}"
     dest: /etc/apache2/certs/fresca.test.at.sfsu.edu.2016.cer
     mode: 0644
-  tags: [fresca, vhost]
 
 - name: copy SSLCertificateKeyFile
   copy: 
     content: "{{ cert_key }}"
     dest: /etc/apache2/certs/fresca.test.at.sfsu.edu.2016.key
     mode: 0600
-  tags: [fresca, vhost]
 
 
 # Copy virtual host file and enable site
 - name: copy fresca.conf virtualhost file
   template: src=fresca.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
-  tags: [fresca, vhost]
 
 - name: disable 000-default
   shell: a2dissite 000-default.conf
-  tags: [fresca, vhost]
 
 - name: enable fresca virtualhost file
   shell: a2ensite fresca.conf
-  tags: [fresca, vhost]

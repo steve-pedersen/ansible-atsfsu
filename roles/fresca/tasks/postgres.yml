@@ -10,7 +10,6 @@
     encoding: 'UNICODE'
   become_user: apps
   notify: restart postgres
-  tags: [fresca, postgres]
 
 
 
@@ -21,5 +20,4 @@
     - libpq-dev
     - python-psycopg2
   when: python_prereqs|changed and fresca
-  tags:
-    - packages  
+  tags: pg-packages

@@ -1,17 +1,20 @@
 ---
 # Fresca specific packages
 
+
+#
+# Package manager installations
+# 
 - name: apt-get update and upgrade
   apt:  upgrade=yes update_cache=yes state=latest
   notify: restart apache2
-  tags: [fresca, fresca-packages]
+  tags: apt
 
-# fresca_packages are defined in roles/fresca/vars/main.yml
 - name: install fresca packages
   apt:  name={{ item }} update_cache=yes state=latest
   with_items: "{{ fresca_packages }}"
   notify: restart apache2
-  tags: [fresca, fresca-packages]
+  tags: apt
 
 
 #
@@ -19,48 +22,47 @@
 #
 - name: build xapian-bindings dependencies
   shell: apt-get build-dep -y xapian-bindings warn=no
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: install xapian dependencies
   apt:  name={{ item }} update_cache=yes state=latest
   with_items: "{{ xapian_dependencies }}"
   notify: restart apache2
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: clear any pre-existing xapian dir in root folder
   file: path=~/xapian state=absent
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: create xapian dir to work in
   file: path=~/xapian state=directory mode=0755
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: get xapian-bindings from source
   shell:  cd ~/xapian && apt-get source xapian-bindings warn=no
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: remove debian control and stamp files
   shell:  cd ~/xapian/xapian-bindings-1.2.* && rm -f debian/control debian/*-stamp
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: alter files in debian folder to permit php bindings
   shell:  "cd ~/xapian/xapian-bindings-1.2.* && echo php > debian/bindings-to-package"
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: alter env values then pipe php values into package
   shell:  "cd ~/xapian/xapian-bindings-1.2.* && env PHP_VERSIONS=5 debian/rules maint && sed -i '/^X-Dummy:/d' debian/control"
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: build the php5-xapian debian package (this may take a couple minutes)
   shell:  "cd ~/xapian/xapian-bindings-1.2.* && env DEB_BUILD_OPTIONS=nocheck debuild -e PHP_VERSIONS=5 -us -uc"
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 
 - name: install the php5-xapian package we just built!
   shell:  "cd ~/xapian && dpkg -i php5-xapian_*.deb"
   notify: restart apache2
   register: php_xapian
-  tags: [fresca, fresca-packages, xapian]
+  tags: xapian
 #
 # End of Xapian install
 #
-

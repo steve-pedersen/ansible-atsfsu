@@ -11,13 +11,5 @@
   tags: [fresca, config]
 
 - name: copy colophon
-  template: src=colophon.conf.j2 dest=/var/www/catalog/var/app.conf mode=0664
-  tags: [fresca, config]
-
-- name: copy ssl cert
-  template: src=devcert.crt dest=/etc/apache2/devcert.crt mode=0644
-  tags: [fresca, config]
-
-- name: copy ssl key
-  template: src=devkey.key dest=/etc/apache2/devkey.key mode=0644
+  template: src=colophon.conf.j2 dest=/var/www/catalog/var/colophon.conf mode=0664
   tags: [fresca, config]

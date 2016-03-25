@@ -4,10 +4,15 @@
 
 #- include: shibboleth.yml
 - include: install-packages.yml   # fresca specific packages
+  tags: packages
 - include: git.yml                # clone fresca repo
+  tags: git
 - include: virtualhosts.yml       # transfer ssl certs, enable virtual host
-#- include: postgres.yml           # createdb
-#- include: config.yml             # remaining tasks
+  tags: vhost
+- include: postgres.yml           # createdb
+  tags: postgres
+- include: config.yml             # remaining tasks
+  tags: config
 
 
 #
