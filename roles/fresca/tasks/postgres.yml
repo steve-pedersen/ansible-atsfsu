@@ -8,7 +8,6 @@
     login_user: apps
     template: 'template0'
     encoding: 'UNICODE'
-  become_user: apps
   notify: restart postgres
 
 
@@ -19,5 +18,5 @@
   with_items:
     - libpq-dev
     - python-psycopg2
-  when: python_prereqs|changed and fresca
+  when: python_prereqs|changed or fresca
   tags: pg-packages
