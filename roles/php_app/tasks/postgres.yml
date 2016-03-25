@@ -9,8 +9,7 @@
     - libpq-dev
     - python-psycopg2
   register: python_prereqs
-  tags:
-    - packages
+  tags: pg-packages
 
 
 - name: add postgreSQL generic user with name apps
@@ -44,5 +43,4 @@
     - libpq-dev
     - python-psycopg2
   when: python_prereqs|changed and not fresca
-  tags:
-    - packages  
+  tags: pg-packages

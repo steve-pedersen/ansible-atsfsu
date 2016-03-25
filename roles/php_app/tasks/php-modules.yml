@@ -2,8 +2,7 @@
 # Configuration of PHP mods-available
 
 
-# Create mods-available configuration files
-# TODO: look for a way to insert a template at EOF, if file exists -- (lineinfile module)
+# Create php mods from template settings
 - name: create opcache from template
   template: src=opcache.j2 dest=/etc/php5/mods-available/opcache.ini
   tags: mods-available
@@ -28,21 +27,26 @@
 # Enable PHP5 modules
 - name: enable php5 opcache module
   shell: php5enmod opcache
+  tags: mods-enabled
 
 - name: enable php5 pecl_http module
   shell: php5enmod pecl_http
+  tags: mods-enabled
 
 - name: enable php5 memory_limit module
   shell: php5enmod memory_limit
+  tags: mods-enabled
 
 - name: enable php5 upload module
   shell: php5enmod upload
+  tags: mods-enabled
 
 - name: enable php5 timezone module
   shell: php5enmod timezone
+  tags: mods-enabled
 
 
-# configure apache2/php.ini
+# Configure apache2/php.ini
 - name: increase php garbage collection time from 1440 to 28800 seconds
   replace:
     dest: /etc/php5/apache2/php.ini
@@ -50,4 +54,4 @@
     replace: "session.gc_maxlifetime = 28800"
     backup: yes
   when: test or production
-  tags: [php_app, php_ini]
+  tags: php-ini

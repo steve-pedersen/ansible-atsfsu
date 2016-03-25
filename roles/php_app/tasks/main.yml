@@ -4,10 +4,15 @@
 
 # Main tasks
 - include:  install-packages.yml  # apache, php, postgres, etc.
+  tags: packages
 - include:  apache-modules.yml    # rewrite, headers, ssl
+  tags: a2-mods
 - include:  php-modules.yml       # opcache, pecl_http, config, etc.
+  tags: php-mods
 - include:  postgres.yml          # createuser and establish trust
+  tags: postgres
 - include:  ssh-git.yml           # configure ssh and clone framework
+  tags: git
 
 
 #
