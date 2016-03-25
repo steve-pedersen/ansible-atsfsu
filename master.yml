@@ -1,0 +1,55 @@
+---
+#
+# Filename:     master.yml
+# Description:  Master Playbook
+# Author:       Steve Pedersen
+# Company:      Academic Technology
+#
+
+
+#
+# Play for common tasks that apply to all nodes 
+#
+# - name: apply configuration to all nodes
+#   hosts:  all
+#   remote_user:  root
+#   roles:
+#     - common
+
+
+
+#
+# Play for deployment of AT PHP Framework based applications
+#
+- name: Configure and deploy content for PHP applications
+  hosts:  webservers
+  gather_facts: no
+  become: yes
+  become_user:  root
+  roles:    
+    - {role: php_app, tags: php_app }
+
+
+
+#
+# Plays for deployment of Fresca application
+# Deploy can be for test and/or production
+#
+- name: Configure and deploy Fresca application on Test
+  hosts:  fresca-test
+  gather_facts: no
+  become: yes
+  become_user:  root
+  roles:      
+    - { role: fresca, when: fresca and test, tags: ['fresca', 'fresca-test'] }
+    # Fresca site specific tasks for Test server
+
+# - name: Configure and deploy Fresca Test application on Production
+#   hosts:  fresca-production
+#   gather_facts: no
+#   become: yes
+#   become_user:  root
+
+#   roles:      
+#     - { role: fresca, when: fresca and production, tags: ['fresca', 'fresca-production'] }
+

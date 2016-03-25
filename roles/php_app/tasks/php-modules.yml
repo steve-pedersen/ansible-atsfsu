@@ -40,3 +40,14 @@
 
 - name: enable php5 timezone module
   shell: php5enmod timezone
+
+
+# configure apache2/php.ini
+- name: increase php garbage collection time from 1440 to 28800 seconds
+  replace:
+    dest: /etc/php5/apache2/php.ini
+    regexp: (session.gc_maxlifetime = 1440)
+    replace: "session.gc_maxlifetime = 28800"
+    backup: yes
+  when: test or production
+  tags: [php_app, php_ini]
