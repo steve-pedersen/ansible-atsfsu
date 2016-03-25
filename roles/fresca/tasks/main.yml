@@ -11,8 +11,8 @@
   tags: vhost
 - include: postgres.yml           # createdb
   tags: postgres
-- include: config.yml             # remaining tasks
-  tags: config
+# - include: config.yml             # remaining tasks
+#   tags: config
 
 
 #
