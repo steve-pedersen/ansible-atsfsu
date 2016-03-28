@@ -13,6 +13,12 @@
 - name: dropDB first
   postgresql_db: name=fresca login_user=apps state=absent
 
+- name: add postgreSQL fresca role
+  postgresql_user: name=fresca role_attr_flags=SUPERUSER
+  become: true
+  become_user: postgres
+  notify: restart postgres
+
 - name: create fresca database
   postgresql_db:
     name: fresca

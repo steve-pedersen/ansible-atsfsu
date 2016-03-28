@@ -4,6 +4,9 @@
 
 
 # Copy SSL certs
+- name: create certs folder
+  file: path=/etc/apache2/certs state=directory mode=0755
+
 - name: copy SSLCertificateFile
   copy: 
     content: "{{ cert_file }}"

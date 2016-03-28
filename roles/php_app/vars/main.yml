@@ -32,3 +32,4 @@ apt_packages:
   - opensaml2-tools
   - clamav                    # for antivirus users
   - nodejs
+  - npm

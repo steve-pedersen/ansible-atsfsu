@@ -63,6 +63,21 @@
   notify: restart apache2
   register: php_xapian
   tags: xapian
+
+- name: enable xapian extension
+  copy: 
+    content: "extension=xapian.so"
+    dest: /etc/php5/mods-available/xapian.ini
+  tags: xapian
+
+- name: create symlink for xapian extension
+  file:
+    src: /etc/php5/mods-available/xapian.ini      #file to link to
+    path: /etc/php5/apache2/conf.d/20-xapian.ini  #the symlink
+    state: link
+    mode: 0777
+  notify: restart apache2
+  tags: xapian
 #
 # End of Xapian install
 #
