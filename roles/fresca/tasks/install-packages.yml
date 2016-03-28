@@ -7,18 +7,12 @@
 # 
 - name: apt-get update and upgrade
   apt:  upgrade=yes update_cache=yes state=latest cache_valid_time=3600
-  register: result
-  until: result.stderr == ""
-  retries: 3
   notify: restart apache2
   tags: apt
 
 - name: install fresca packages
   apt:  name={{ item }} update_cache=yes state=latest cache_valid_time=3600
   with_items: "{{ fresca_packages }}"
-  register: result
-  until: result.stderr == ""
-  retries: 3
   notify: restart apache2
   tags: apt
 

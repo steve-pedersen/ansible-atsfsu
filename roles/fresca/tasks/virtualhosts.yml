@@ -4,25 +4,47 @@
 
 
 # Copy SSL certs
-- name: create certs folder
+- name: create certs folder test
   file: path=/etc/apache2/certs state=directory mode=0755
+  when: test
 
-- name: copy SSLCertificateFile
+- name: copy SSLCertificateFile test
   copy: 
-    content: "{{ cert_file }}"
+    content: "{{ cert_file_test }}"
     dest: /etc/apache2/certs/fresca.test.at.sfsu.edu.2016.cer
     mode: 0644
+  when: test
 
-- name: copy SSLCertificateKeyFile
+- name: copy SSLCertificateKeyFile test
   copy: 
-    content: "{{ cert_key }}"
+    content: "{{ cert_key_test }}"
     dest: /etc/apache2/certs/fresca.test.at.sfsu.edu.2016.key
     mode: 0600
+  when: test
+
+- name: copy SSLCertificateFile production
+  copy: 
+    content: "{{ cert_file_prod }}"
+    dest: /etc/apache2/fresca.calstate.edu.2015.cer
+    mode: 0644
+  when: production
+
+- name: copy SSLCertificateKeyFile production
+  copy: 
+    content: "{{ cert_key_prod }}"
+    dest: /etc/apache2/fresca.calstate.edu.2015.key
+    mode: 0600
+  when: production
 
 
 # Copy virtual host file and enable site
-- name: copy fresca.conf virtualhost file
+- name: copy fresca.conf virtualhost file test
   template: src=fresca.vhost.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
+  when: test
+
+- name: copy fresca.conf virtualhost file production
+  template: src=fresca-vhost.prod.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
+  when: production
 
 - name: enable fresca virtualhost file
   command: a2ensite fresca

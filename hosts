@@ -3,6 +3,10 @@ fresca
 
 [fresca:children]
 fresca-test
+fresca-production
 
 [fresca-test]
 fresca.test.at.sfsu.edu
+
+[fresca-production]
+fresca.calstate.edu

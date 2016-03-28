@@ -1,0 +1,62 @@
+<VirtualHost *:80>
+  ServerAdmin tjudd@sfsu.edu
+  DocumentRoot /var/www/catalog/public
+  ErrorLog /var/log/apache2/error.log
+  LogLevel warn
+
+  CustomLog /var/log/apache2/access.log combined
+</VirtualHost>
+
+<Directory /var/www/catalog/public>
+        RewriteEngine on
+        RewriteBase /
+
+  # Force calstate.edu address
+  RewriteCond %{HTTP_HOST} !^fresca.calstate.edu$
+  RewriteRule ^/?(.*)$ https://fresca.calstate.edu/$1 [L,QSA,R=permanent]
+
+        # Force SSL
+        RewriteCond %{HTTPS} ^off$
+        RewriteRule ^/?(.*)$ https://%{SERVER_NAME}/$1 [L,QSA,R=permanent]
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/Shibboleth.sso
+        RewriteRule ^(.*)$ index.php?_path=$1 [L,QSA]
+</Directory>
+
+<IfModule mod_shib2.c>
+  <LocationMatch "^/login/complete/[a-zA-Z0-9]+-shib$">
+           AuthType shibboleth
+           ShibRedirectToSSL 443
+     ShibRequireSession On
+           ShibUseHeaders On
+           require valid-user
+  </LocationMatch>
+</IfModule>
+
+<IfModule mod_ssl.c>
+<VirtualHost _default_:443>
+  ServerAdmin tjudd@sfsu.edu
+
+  DocumentRoot /var/www/catalog/public
+  ErrorLog /var/log/apache2/error.log
+  LogLevel warn
+  CustomLog /var/log/apache2/ssl_access.log combined
+
+  SSLEngine on
+  SSLCertificateFile /etc/apache2/fresca.calstate.edu.2015.cer
+  SSLCertificateKeyFile /etc/apache2/fresca.calstate.edu.2015.key 
+  SSLCACertificateFile /etc/apache2/intermediate_CA_bundle.cer
+  SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
+
+  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
+  </FilesMatch>
+
+  BrowserMatch ".*MSIE.*" \
+    nokeepalive ssl-unclean-shutdown \
+    downgrade-1.0 force-response-1.0
+
+</VirtualHost>
+</IfModule>

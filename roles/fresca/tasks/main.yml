@@ -2,7 +2,7 @@
 # Playbook for Fresca
 
 
-#- include: shibboleth.yml
+
 - include: install-packages.yml   # fresca specific packages
   tags: packages
 - include: git.yml                # clone fresca repo
@@ -11,6 +11,8 @@
   tags: vhost
 - include: postgres.yml           # createdb
   tags: postgres
+- include: shibboleth.yml
+  tags: shibboleth
 - include: config.yml             # remaining tasks
   tags: config
 

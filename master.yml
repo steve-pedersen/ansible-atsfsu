@@ -44,12 +44,12 @@
     - { role: fresca, when: fresca and test, tags: ['fresca', 'fresca-test'] }
     # Fresca site specific tasks for Test server
 
-# - name: Configure and deploy Fresca Test application on Production
-#   hosts:  fresca-production
-#   gather_facts: no
-#   become: yes
-#   become_user:  root
+- name: Configure and deploy Fresca Test application on Production
+  hosts:  fresca-production
+  gather_facts: no
+  become: yes
+  become_user:  root
 
-#   roles:      
-#     - { role: fresca, when: fresca and production, tags: ['fresca', 'fresca-production'] }
+  roles:      
+    - { role: fresca, when: fresca and production, tags: ['fresca', 'fresca-production'] }
 

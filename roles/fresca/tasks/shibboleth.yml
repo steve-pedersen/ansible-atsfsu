@@ -1,5 +1,7 @@
 ---
 # replaces shibboleth files, adds IdP files and runs shib-keygen
+- include_vars: secrets.yml
+
 
 - name: replace shibboleth2.xml with own copy
   copy: 
