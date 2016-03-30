@@ -1,0 +1,96 @@
+{
+    "appName":"CSU Fresca (1.0.0dev - fwk2)",
+    "appKey": "fd7cde96-0492-4dda-b850-c4b440a3d524",
+    "colophon": "\/var\/www\/catalog\/var\/colophon.conf",
+    "siteNotice": "",
+    "contactEmail": "csu.fresca@gmail.com",
+    "contactPhone": "(415) 405-2195",
+    
+    "paths": {
+        "app": {
+            "base": "\/var\/www\/catalog",
+            "web": "public",
+            "var": "var",
+            "searchIndex": "var\/xapian"
+        }
+    },
+    
+    "impl": {
+        "masterTemplate": "Catalog_Master_Template",
+        "userContext": "Catalog_Master_UserContext"
+    },
+    
+    "identityProviders": {
+        "csuh-shib": {
+            "displayName": "Humboldt Shibboleth (idp dev)",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "urn:mace:incommon:humboldt.edu",
+            "allowedAffiliations": ["Employee Faculty", "Employee Staff"],
+            "debug": true
+        },
+        "test-shib": {
+            "displayName": "TestShib",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://idp.testshib.org/idp/shibboleth",
+            "allowedAffiliations": ["Employee Faculty", "Employee Staff"],
+            "debug": true
+        },
+        "sfsu-shib": {
+            "displayName": "San Francisco State University (Shibboleth - test)",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://idp-test.sfsu.edu/idp/shibboleth",
+            "globalLogoutUrl": "https://idp-test.sfsu.edu/idp/Logout",
+            "allowedAffiliations": ["Employee Faculty", "Student"],
+            "debug": true
+        },
+        "csusb-shib": {
+            "displayName": "CSU San Bernardino (Shibboleth - test)",
+            "impl": "Catalog_Shibboleth_IdentityProvider",
+            "entityId": "https://shib1.csusb.edu/idp/shibboleth",
+            "allowedAffiliations": ["Employee Staff", "Employee Faculty"]
+        },
+        "sfsu-pw": {
+            "displayName": "San Francisco State University (legacy)",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        },
+        "test": {
+            "displayName": "Testers",
+            "impl": "Bss_PasswordAuthentication_IdentityProvider"
+        }
+    },
+    
+    "mail": {
+        "from": "csu.fresca@gmail.com",
+        "fromName": "CSU Fresca",
+        "method": "mail"
+    },
+    
+    "dataSources": {
+        "default": {
+            "connectionType": "pgsql",
+            "dsn": "dbname=fresca user=apps"
+        }
+    },
+    
+    "authorizationSourceList": {
+        "default": {
+            "className": "Bss_AuthZ_CachePermissionSource",
+            "source": {
+                "className": "Bss_AuthZ_PersistentPermissionSource"
+            }
+        }
+    },
+    
+    "modules": {
+        "bss:core:authN": {
+            "manageAccounts": { "template": "module:csu:catalog:authN/manageAccounts.html.tpl" }
+        }
+    },
+
+    "blog": {
+      "feedUrl": "http://blogs.calstate.edu/rip/?feed=rss2"
+    }, 
+
+    "moduleSearchPaths": ["\/var\/www\/framework\/bss\/modules","\/var\/www\/catalog\/modules"],
+    "runMode":1
+}
