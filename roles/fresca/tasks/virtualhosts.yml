@@ -1,49 +1,54 @@
 ---
 # Playbook for Apache-Fresca virtual host configuration
-- include_vars: secrets.yml
+- include_vars: test-secrets.yml
+- include_vars: prod-secrets.yml
 
 
-# Copy SSL certs
+# Copy SSL certs - file/key names set conditionally based on test or prod
 - name: create certs folder test
   file: path=/etc/apache2/certs state=directory mode=0755
-  when: test
+  tags: certs
 
 - name: copy SSLCertificateFile test
   copy: 
-    content: "{{ cert_file_test }}"
-    dest: /etc/apache2/certs/fresca.test.at.sfsu.edu.2016.cer
+    content: "{{ test_cert_file }}"
+    dest: /etc/apache2/certs/{{ test_cert_file_filename }}
     mode: 0644
   when: test
+  tags: certs
 
 - name: copy SSLCertificateKeyFile test
   copy: 
-    content: "{{ cert_key_test }}"
-    dest: /etc/apache2/certs/fresca.test.at.sfsu.edu.2016.key
+    content: "{{ test_cert_key }}"
+    dest: /etc/apache2/certs/{{ test_cert_key_filename }}
     mode: 0600
   when: test
+  tags: certs
 
 - name: copy SSLCertificateFile production
   copy: 
-    content: "{{ cert_file_prod }}"
-    dest: /etc/apache2/fresca.calstate.edu.2015.cer
+    content: "{{ prod_cert_file }}"
+    dest: /etc/apache2/certs/{{ prod_cert_file_filename }}
     mode: 0644
   when: production
+  tags: certs
 
 - name: copy SSLCertificateKeyFile production
   copy: 
-    content: "{{ cert_key_prod }}"
-    dest: /etc/apache2/fresca.calstate.edu.2015.key
+    content: "{{ prod_cert_key }}"
+    dest: /etc/apache2/certs/{{ prod_cert_key_filename }}
     mode: 0600
   when: production
+  tags: certs
 
 
 # Copy virtual host file and enable site
 - name: copy fresca.conf virtualhost file test
-  template: src=fresca.vhost.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
+  template: src=fresca.vhost-test.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
   when: test
 
 - name: copy fresca.conf virtualhost file production
-  template: src=fresca-vhost.prod.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
+  template: src=fresca.vhost-prod.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
   when: production
 
 - name: enable fresca virtualhost file

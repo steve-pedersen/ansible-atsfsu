@@ -1,4 +1,5 @@
 ---
+# Non-sensitive variables
 
 fresca_packages:
   - php5-gd
@@ -7,10 +8,18 @@ fresca_packages:
   - markdown
   - libmarkdown-php
   - gcc
-  # - xapian-tools
-  # - libxapian-dev
 
+
+# Required for binary package build of php5-xapian
 xapian_dependencies:
   - php5-dev
   - php5-cli
   - devscripts
+
+
+# SSL certs
+test_cert_file_filename: fresca.test.at.sfsu.edu.2016.cer
+test_cert_key_filename: fresca.test.at.sfsu.edu.2016.key
+
+prod_cert_file_filename: fresca.calstate.edu.2015.cer
+prod_cert_key_filename: fresca.calstate.edu.2015.key

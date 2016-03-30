@@ -1,7 +1,0 @@
----
-# Example/placeholder file for group variables that store sensitive data.
-# Applies these variable to all hosts in the webserver group (including children).
-# Useful for storing sensitive data that ansible-vault can encrypt.
-
-# e.g. ansible_super_secret_password: cheese
-ansible_ssh_user: root
