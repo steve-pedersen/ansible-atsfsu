@@ -1,48 +1,48 @@
 ---
 # Uses core package modules install packages.
 
-- name: apt-get update and upgrade
+- name: Run apt-get update and upgrade
   apt:  upgrade=yes update_cache=yes state=latest cache_valid_time=3600
   notify: restart apache2
   tags: apt
 
-- name: install packages apache and php etc
+- name: Install packages apache and php etc
   apt:  name={{ item }} update_cache=yes state=latest cache_valid_time=3600
   with_items: "{{ apt_packages }}"
   notify: restart apache2
   tags: apt
 
-- name: get node from source
+- name: Get node from source
   get_url: url=https://deb.nodesource.com/setup dest=/usr/nodesource
   tags: node
 
-- name: install nodesource via bash
+- name: Install nodesource via bash
   shell: /usr/nodesource | /bin/bash - 
   tags: node
   notify: remove nodesource file
 
-- name: install less with npm
+- name: Install less with npm
   npm:  name=less global=yes state=latest
   tags: npm
 
-- name: install pecl_http-1.7.6
+- name: Install pecl_http-1.7.6
   shell: "yes \"\" | pecl install pecl_http-1.7.6"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
   tags: [perl, pear]
 
-- name: create smarty directory
+- name: Create smarty directory
   file: path=/usr/share/php/smarty state=directory mode=0755
 
-- name: install smarty
+- name: Install smarty
   unarchive: src=https://github.com/smarty-php/smarty/archive/v2.6.29.tar.gz dest=/usr/share/php/smarty copy=no
   tags: smarty
 
-- name: move smarty files
+- name: Move smarty files
   command: cp -R /usr/share/php/smarty/smarty-2.6.29/libs/. /usr/share/php/smarty
   tags: smarty
 
-- name: remove smarty install directory
+- name: Remove smarty install directory
   file: path=/usr/share/php/smarty/smarty-2.6.29 state=absent
   tags: smarty

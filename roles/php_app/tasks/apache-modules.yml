@@ -2,11 +2,11 @@
 # enables apache2 modules (requires ansible version 1.6)
 
 
-- name: enable mod_rewrite
+- name: Enable mod_rewrite
   apache2_module: state=present name=rewrite
 
-- name: enable mod_headers
+- name: Enable mod_headers
   apache2_module: state=present name=headers
 
-- name: enable mod_ssl
+- name: Enable mod_ssl
   apache2_module: state=present name=ssl

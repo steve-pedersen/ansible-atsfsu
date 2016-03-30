@@ -8,11 +8,11 @@
 # Test
 #
 # file copy recursive due to trailing '/' on src
-- name: copy all test shibboleth files
+- name: Copy all test shibboleth files
   copy: src=test/ dest=/etc/shibboleth
   when: test
 
-- name: copy test incommon pem
+- name: Copy test incommon pem
   copy: 
     content: "{{ test_incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
@@ -20,7 +20,7 @@
   when: test
   tags: pems
 
-- name: copy test sp-cert pem
+- name: Copy test sp-cert pem
   copy: 
     content: "{{ test_sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
@@ -28,7 +28,7 @@
   when: test
   tags: pems
 
-- name: copy test sp-key pem
+- name: Copy test sp-key pem
   copy: 
     content: "{{ test_sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem
@@ -41,11 +41,11 @@
 #
 # Production
 #
-- name: copy all production shibboleth files
+- name: Copy all production shibboleth files
   copy: src=prod/ dest=/etc/shibboleth
   when: production
 
-- name: copy production inc-md-cert pem
+- name: Copy production inc-md-cert pem
   copy: 
     content: "{{ prod_inc_md_cert_pem }}"
     dest: /etc/shibboleth/inc-md-cert.pem
@@ -53,7 +53,7 @@
   when: production
   tags: pems
 
-- name: copy production incommon pem
+- name: Copy production incommon pem
   copy: 
     content: "{{ prod_incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
@@ -61,7 +61,7 @@
   when: production
   tags: pems
 
-- name: copy production sp-cert pem
+- name: Copy production sp-cert pem
   copy: 
     content: "{{ prod_sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
@@ -69,7 +69,7 @@
   when: production
   tags: pems
 
-- name: copy production sp-key pem
+- name: Copy production sp-key pem
   copy: 
     content: "{{ prod_sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem

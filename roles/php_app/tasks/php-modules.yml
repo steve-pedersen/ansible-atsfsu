@@ -3,51 +3,51 @@
 
 
 # Create php mods from template settings
-- name: create opcache from template
+- name: Create opcache from template
   template: src=opcache.j2 dest=/etc/php5/mods-available/opcache.ini
   tags: mods-available
 
-- name: config timezone
+- name: Config timezone
   template: src=timezone.j2 dest=/etc/php5/mods-available/timezone.ini
   tags: mods-available
 
-- name: config pecl_http
+- name: Config pecl_http
   template: src=pecl_http.j2 dest=/etc/php5/mods-available/pecl_http.ini
   tags: mods-available
 
-- name: config memory limit
+- name: Config memory limit
   template: src=memory_limit.j2 dest=/etc/php5/mods-available/memory_limit.ini
   tags: mods-available
 
-- name: config upload
+- name: Config upload
   template: src=upload.j2 dest=/etc/php5/mods-available/upload.ini
   tags: mods-available
 
 
 # Enable PHP5 modules
-- name: enable php5 opcache module
+- name: Enable php5 opcache module
   shell: php5enmod opcache
   tags: mods-enabled
 
-- name: enable php5 pecl_http module
+- name: Enable php5 pecl_http module
   shell: php5enmod pecl_http
   tags: mods-enabled
 
-- name: enable php5 memory_limit module
+- name: Enable php5 memory_limit module
   shell: php5enmod memory_limit
   tags: mods-enabled
 
-- name: enable php5 upload module
+- name: Enable php5 upload module
   shell: php5enmod upload
   tags: mods-enabled
 
-- name: enable php5 timezone module
+- name: Enable php5 timezone module
   shell: php5enmod timezone
   tags: mods-enabled
 
 
 # Configure apache2/php.ini
-- name: increase php garbage collection time from 1440 to 28800 seconds
+- name: Increase php garbage collection time from 1440 to 28800 seconds
   replace:
     dest: /etc/php5/apache2/php.ini
     regexp: (session.gc_maxlifetime = 1440)

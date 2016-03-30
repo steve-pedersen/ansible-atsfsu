@@ -5,15 +5,15 @@
 #
 # SSH
 #
-- name: create ssh dir and set permissions
+- name: Create ssh dir and set permissions
   file: path=/root/.ssh state=directory mode=0700
   tags: ssh
 
-- name: create ssh config file and set permissions
+- name: Create ssh config file and set permissions
   template: src=config.j2 dest=/root/.ssh/config  mode=0600
   tags: ssh
 
-- name: copy ssh key to remote node
+- name: Copy ssh key to remote node
   copy: src=~/.ssh/deployer.git dest=/root/.ssh/deployer.git  mode=0600
   tags: ssh
 
@@ -21,10 +21,10 @@
 #
 # Git
 #
-- name: remove the framework directory
+- name: Remove the framework directory
   file: path=/var/www/framework state=absent force=yes
   tags: framework
 
-- name: git clone of framework repo
+- name: Git clone of framework repo
   git:  repo=git@git.at.sfsu.edu:framework.git  dest=/var/www/framework  clone=yes accept_hostkey=yes
   tags: framework

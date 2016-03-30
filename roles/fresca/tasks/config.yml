@@ -2,14 +2,14 @@
 # Remaining configuration for Fresca site
 
 
-- name: copy bss-init file
+- name: Copy bss-init file
   template: src=bss.init.php.j2 dest=/var/www/catalog/public/bss.init.php mode=0644
 
-- name: copy app.conf file test
+- name: Copy app.conf file test
   template: src=fresca.test.conf.j2 dest=/var/www/catalog/var/app.conf mode=0755
   when: test
 
-- name: copy app.conf file production
+- name: Copy app.conf file production
   template: src=fresca.prod.conf.j2 dest=/var/www/catalog/var/app.conf mode=0755
   when: production
 
@@ -19,6 +19,6 @@
 # - name: copy colophon
 #   template: src=colophon.conf.j2 dest=/var/www/catalog/var/colophon.conf mode=0664
 
-- name: update var directory permissions
+- name: Update var directory permissions
   command: chmod -R 0777 /var/www/catalog/var warn=no
   #notify: run scan

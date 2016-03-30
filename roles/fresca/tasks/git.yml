@@ -2,8 +2,8 @@
 # Git related tasks for Fresca
 
 
-- name: remove the catalog directory
+- name: Remove the catalog directory
   file: path=/var/www/catalog state=absent force=yes
 
-- name: git clone of framework repo
+- name: Git clone of framework repo
   git:  repo=git@git.at.sfsu.edu:fresca.git  dest=/var/www/catalog clone=yes accept_hostkey=yes
