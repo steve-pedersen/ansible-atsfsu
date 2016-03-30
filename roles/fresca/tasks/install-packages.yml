@@ -82,10 +82,3 @@
 # End of Xapian install
 #
 
-
-- name: apt-get update and upgrade
-  apt:  upgrade=yes update_cache=yes state=latest cache_valid_time=3600
-  register: result
-  until: result.stderr == ""
-  retries: 3
-  tags: loopy
