@@ -1,49 +1,79 @@
 ---
-# replaces shibboleth files, adds IdP files and runs shib-keygen
-- include_vars: secrets.yml
+# Copy shibboleth files & pems for test/production
+- include_vars: test-secrets.yml
+- include_vars: prod-secrets.yml
 
 
-- name: replace shibboleth2.xml with own copy
+#
+# Test
+#
+# file copy recursive due to trailing '/' on src
+- name: copy all test shibboleth files
+  copy: src=test/ dest=/etc/shibboleth
+  when: test
+
+- name: copy test incommon pem
   copy: 
-    src:  files/shibboleth2.xml
-    dest: /etc/shibboleth/shibboleth2.xml 
-    owner:  root
-    group:  root
-    mode:   0644
-  #when: production
-  tags: shibby
+    content: "{{ test_incommon_pem }}"
+    dest: /etc/shibboleth/incommon.pem
+    mode: 0644
+  when: test
+  tags: pems
 
-- name: replace attribute-map.xml with own copy
+- name: copy test sp-cert pem
   copy: 
-    src:  files/attribute-map.xml
-    dest: /etc/shibboleth/attribute-map.xml
-    owner:  root
-    group:  root
-    mode:   0644
-  #when: production
-  tags: shibby
+    content: "{{ test_sp_cert_pem }}"
+    dest: /etc/shibboleth/sp-cert.pem
+    mode: 0644
+  when: test
+  tags: pems
 
-- name: add idp-nash-metadata.xml for test
-  copy:
-    content: ""  # for actual content use a template
-    dest:   /etc/shibboleth/idp-nash-metadata.xml
-    owner:  root
-    group:  root
-    mode:   0644
-  #when: production
-  tags: shibby
+- name: copy test sp-key pem
+  copy: 
+    content: "{{ test_sp_key_pem }}"
+    dest: /etc/shibboleth/sp-key.pem
+    mode: 0644
+  when: test
+  notify: restart shibd
+  tags: pems
 
-- name: add idp-minkar-metadata.xml for production
-  copy:
-    content: ""  # for actual content use a template
-    dest:   /etc/shibboleth/idp-minkar-metadata.xml
-    owner:  root
-    group:  root
-    mode:   0644
-  #when: production
-  tags: shibby
 
-- name: shib-keygen
-  command:  shib-keygen
-  #when: production
-  tags: shibby
+#
+# Production
+#
+- name: copy all production shibboleth files
+  copy: src=prod/ dest=/etc/shibboleth
+  when: production
+
+- name: copy production inc-md-cert pem
+  copy: 
+    content: "{{ prod_inc_md_cert_pem }}"
+    dest: /etc/shibboleth/inc-md-cert.pem
+    mode: 0644
+  when: production
+  tags: pems
+
+- name: copy production incommon pem
+  copy: 
+    content: "{{ prod_incommon_pem }}"
+    dest: /etc/shibboleth/incommon.pem
+    mode: 0644
+  when: production
+  tags: pems
+
+- name: copy production sp-cert pem
+  copy: 
+    content: "{{ prod_sp_cert_pem }}"
+    dest: /etc/shibboleth/sp-cert.pem
+    mode: 0644
+  when: production
+  tags: pems
+
+- name: copy production sp-key pem
+  copy: 
+    content: "{{ prod_sp_key_pem }}"
+    dest: /etc/shibboleth/sp-key.pem
+    mode: 0644
+  when: production
+  notify: restart shibd
+  tags: pems
