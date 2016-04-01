@@ -42,7 +42,7 @@
   become_user:  root
   roles:      
     - { role: fresca, when: fresca and test, tags: ['fresca', 'fresca-test'] }
-    # Fresca site specific tasks for Test server
+
 
 - name: Configure and deploy Fresca Test application on Production
   hosts:  fresca-production
