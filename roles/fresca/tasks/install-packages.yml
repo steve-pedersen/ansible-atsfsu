@@ -6,12 +6,12 @@
 # Package manager installations
 # 
 - name: Run apt-get update and upgrade
-  apt:  upgrade=yes update_cache=yes state=latest cache_valid_time=3600
+  apt:  upgrade=yes cache_valid_time=3600
   notify: restart apache2
   tags: apt
 
 - name: Install fresca packages
-  apt:  name={{ item }} update_cache=yes state=latest cache_valid_time=3600
+  apt:  name={{ item }} update_cache=yes state=present cache_valid_time=3600
   with_items: "{{ fresca_packages }}"
   notify: restart apache2
   tags: apt
@@ -25,7 +25,7 @@
   tags: xapian
 
 - name: Install xapian dependencies
-  apt:  name={{ item }} update_cache=yes state=latest
+  apt:  name={{ item }} update_cache=yes state=present
   with_items: "{{ xapian_dependencies }}"
   notify: restart apache2
   tags: xapian

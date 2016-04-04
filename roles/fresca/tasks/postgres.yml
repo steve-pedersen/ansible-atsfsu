@@ -4,7 +4,7 @@
 
 # Ansible requires these modules on remote node in order to user postgres
 - name: Install prerequisites for postgres to be setup by ansible
-  apt: name={{ item }} update_cache=yes state=latest
+  apt: name={{ item }} update_cache=yes state=present
   with_items:
     - libpq-dev
     - python-psycopg2

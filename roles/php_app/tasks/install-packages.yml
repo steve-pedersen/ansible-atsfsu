@@ -2,12 +2,12 @@
 # Uses core package modules install packages.
 
 - name: Run apt-get update and upgrade
-  apt:  upgrade=yes update_cache=yes state=latest cache_valid_time=3600
+  apt:  upgrade=yes cache_valid_time=3600
   notify: restart apache2
   tags: apt
 
 - name: Install packages apache and php etc
-  apt:  name={{ item }} update_cache=yes state=latest cache_valid_time=3600
+  apt:  name={{ item }} update_cache=yes state=present cache_valid_time=3600
   with_items: "{{ apt_packages }}"
   notify: restart apache2
   tags: apt
