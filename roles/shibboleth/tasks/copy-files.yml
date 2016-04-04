@@ -10,14 +10,14 @@
 # file copy recursive due to trailing '/' on src
 - name: Copy all test shibboleth files
   copy: src=test/ dest=/etc/shibboleth
-  when: test
+  when: test and fresca
 
 - name: Copy test incommon pem
   copy: 
     content: "{{ fresca_test_incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
     mode: 0644
-  when: test
+  when: test and fresca
   tags: pems
 
 - name: Copy test sp-cert pem
@@ -25,7 +25,7 @@
     content: "{{ fresca_test_sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
     mode: 0644
-  when: test
+  when: test and fresca
   tags: pems
 
 - name: Copy test sp-key pem
@@ -33,7 +33,7 @@
     content: "{{ fresca_test_sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem
     mode: 0644
-  when: test
+  when: test and fresca
   notify: restart shibd
   tags: pems
 
@@ -43,14 +43,14 @@
 #
 - name: Copy all production shibboleth files
   copy: src=prod/ dest=/etc/shibboleth
-  when: production
+  when: production and fresca
 
 - name: Copy production inc-md-cert pem
   copy: 
     content: "{{ fresca_prod_inc_md_cert_pem }}"
     dest: /etc/shibboleth/inc-md-cert.pem
     mode: 0644
-  when: production
+  when: production and fresca
   tags: pems
 
 - name: Copy production incommon pem
@@ -58,7 +58,7 @@
     content: "{{ fresca_prod_incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
     mode: 0644
-  when: production
+  when: production and fresca
   tags: pems
 
 - name: Copy production sp-cert pem
@@ -66,7 +66,7 @@
     content: "{{ fresca_prod_sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
     mode: 0644
-  when: production
+  when: production and fresca
   tags: pems
 
 - name: Copy production sp-key pem
@@ -74,6 +74,6 @@
     content: "{{ fresca_prod_sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem
     mode: 0644
-  when: production
+  when: production and fresca
   notify: restart shibd
   tags: pems
