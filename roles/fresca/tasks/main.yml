@@ -11,8 +11,6 @@
   tags: vhost
 - include: postgres.yml           # createdb
   tags: postgres
-- include: shibboleth.yml
-  tags: shibboleth
 - include: config.yml             # remaining tasks
   tags: config
 
