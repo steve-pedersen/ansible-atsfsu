@@ -1,0 +1,9 @@
+---
+# Handler for shibboleth role
+
+
+- name: restart shibd
+  service: name=shibd state=restarted
+
+- name: restart apache2
+  service: name=apache2 state=restarted

@@ -1,0 +1,6 @@
+---
+# Main playbook for Shibboleth-role tasks
+
+
+- include: install-packages.yml     # shibboleth specific packages
+  tags: packages

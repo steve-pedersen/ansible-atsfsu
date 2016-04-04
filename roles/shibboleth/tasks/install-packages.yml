@@ -1,0 +1,17 @@
+---
+# Shibboleth specific packages
+
+
+#
+# Package manager installations
+# 
+- name: Run apt-get update and upgrade
+  apt:  upgrade=yes cache_valid_time=3600
+  notify: restart apache2
+  tags: apt
+
+- name: Install shibboleth packages
+  apt:  name={{ item }} update_cache=yes state=latest cache_valid_time=3600
+  with_items: "{{ shib_packages }}"
+  notify: restart apache2
+  tags: apt
