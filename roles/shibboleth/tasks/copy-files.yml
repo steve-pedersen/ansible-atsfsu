@@ -14,7 +14,7 @@
 
 - name: Copy test incommon pem
   copy: 
-    content: "{{ test_incommon_pem }}"
+    content: "{{ fresca_test_incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
     mode: 0644
   when: test
@@ -22,7 +22,7 @@
 
 - name: Copy test sp-cert pem
   copy: 
-    content: "{{ test_sp_cert_pem }}"
+    content: "{{ fresca_test_sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
     mode: 0644
   when: test
@@ -30,7 +30,7 @@
 
 - name: Copy test sp-key pem
   copy: 
-    content: "{{ test_sp_key_pem }}"
+    content: "{{ fresca_test_sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem
     mode: 0644
   when: test
@@ -47,7 +47,7 @@
 
 - name: Copy production inc-md-cert pem
   copy: 
-    content: "{{ prod_inc_md_cert_pem }}"
+    content: "{{ fresca_prod_inc_md_cert_pem }}"
     dest: /etc/shibboleth/inc-md-cert.pem
     mode: 0644
   when: production
@@ -55,7 +55,7 @@
 
 - name: Copy production incommon pem
   copy: 
-    content: "{{ prod_incommon_pem }}"
+    content: "{{ fresca_prod_incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
     mode: 0644
   when: production
@@ -63,7 +63,7 @@
 
 - name: Copy production sp-cert pem
   copy: 
-    content: "{{ prod_sp_cert_pem }}"
+    content: "{{ fresca_prod_sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
     mode: 0644
   when: production
@@ -71,7 +71,7 @@
 
 - name: Copy production sp-key pem
   copy: 
-    content: "{{ prod_sp_key_pem }}"
+    content: "{{ fresca_prod_sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem
     mode: 0644
   when: production
