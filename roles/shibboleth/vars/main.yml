@@ -1,0 +1,7 @@
+---
+
+shib_packages:
+  - shibboleth-sp2-schemas
+  - libshibsp-dev
+  - libshibsp-doc
+  - libapache2-mod-shib2
