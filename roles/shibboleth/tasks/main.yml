@@ -4,3 +4,5 @@
 
 - include: install-packages.yml     # shibboleth specific packages
   tags: packages
+- include: copy-files.yml           # shib files and pems
+  tags: pems
