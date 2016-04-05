@@ -45,8 +45,8 @@
   CustomLog /var/log/apache2/ssl_access.log combined
 
   SSLEngine on
-  SSLCertificateFile /etc/apache2/certs/{{ prod_cert_file_filename }}
-  SSLCertificateKeyFile /etc/apache2/certs/{{ prod_cert_key_filename }}
+  SSLCertificateFile /etc/apache2/certs/{{ fresca_prod_cert_file_filename }}
+  SSLCertificateKeyFile /etc/apache2/certs/{{ fresca_prod_cert_key_filename }}
   SSLCACertificateFile /etc/apache2/certs/intermediate_CA_bundle.cer
   SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
 

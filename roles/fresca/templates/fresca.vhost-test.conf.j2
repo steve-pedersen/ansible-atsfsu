@@ -40,8 +40,8 @@
         #   /usr/share/doc/apache2.2-common/README.Debian.gz for more info.
         #   If both key and certificate are stored in the same file, only the
         #   SSLCertificateFile directive is needed.
-        SSLCertificateFile    /etc/apache2/certs/{{ test_cert_file_filename }}
-        SSLCertificateKeyFile /etc/apache2/certs/{{ test_cert_key_filename }}
+        SSLCertificateFile    /etc/apache2/certs/{{ fresca_test_cert_file_filename }}
+        SSLCertificateKeyFile /etc/apache2/certs/{{ fresca_test_cert_key_filename }}
 
         #   Server Certificate Chain:
         #   Point SSLCertificateChainFile at a file containing the
