@@ -1,0 +1,9 @@
+---
+# group_var/all/config.yml
+# Contains config variables for ALL groups
+
+# this should always be here
+ansible_ssh_user: root
+
+# this should be overridden in a file in the apps group_vars folder
+app_name: generic

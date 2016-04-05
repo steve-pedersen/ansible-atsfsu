@@ -1,0 +1,5 @@
+---
+# variables for all instances of the Fresca applications
+
+# override generic
+app_name: fresca
