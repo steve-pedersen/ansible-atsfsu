@@ -18,8 +18,8 @@ xapian_dependencies:
 
 
 # SSL certs
-test_cert_file_filename: fresca.test.at.sfsu.edu.2016.cer
-test_cert_key_filename: fresca.test.at.sfsu.edu.2016.key
+#test_cert_file_filename: fresca.test.at.sfsu.edu.2016.cer
+#test_cert_key_filename: fresca.test.at.sfsu.edu.2016.key
 
 prod_cert_file_filename: fresca.calstate.edu.2015.cer
 prod_cert_key_filename: fresca.calstate.edu.2015.key
