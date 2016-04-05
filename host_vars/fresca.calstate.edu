@@ -1,0 +1,5 @@
+---
+
+# SSL certs
+prod_cert_file_filename: fresca.calstate.edu.2015.cer
+prod_cert_key_filename: fresca.calstate.edu.2015.key
