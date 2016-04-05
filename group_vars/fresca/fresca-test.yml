@@ -1,5 +1,6 @@
 ---
+# fresca-test specific variables
 
-#fresca: true
+# used to trigger test specific tasks within roles shared with production
 test: true
 production: false
