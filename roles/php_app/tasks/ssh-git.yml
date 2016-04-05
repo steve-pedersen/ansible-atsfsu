@@ -14,8 +14,12 @@
   tags: ssh
 
 - name: Copy ssh key to remote node
-  copy: src=~/.ssh/deployer.git dest=/root/.ssh/deployer.git  mode=0600
+  copy: 
+    content: "{{ deployer_git }}"
+    dest: /root/.ssh/deployer.git
+    mode: 0600
   tags: ssh
+
 
 
 #
