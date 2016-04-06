@@ -5,3 +5,14 @@ shib_packages:
   - libshibsp-dev
   - libshibsp-doc
   - libapache2-mod-shib2
+
+# pems:
+#   - "{{app_name}}_{{instance}}_inc_md_pem"
+#   - "{{app_name}}_{{instance}}_incommon_pem"
+#   - "{{app_name}}_{{instance}}_sp_key_pem"
+#   - "{{app_name}}_{{instance}}_sp_cert_pem"
+
+# inc_md_pem: "{{app_name}}_{{instance}}_inc_md_pem"
+# incommon_pem: "{{app_name}}_{{instance}}_incommon_pem"
+# sp_key_pem: "{{app_name}}_{{instance}}_sp_key_pem"
+# sp_cert_pem: "{{app_name}}_{{instance}}_sp_cert_pem"

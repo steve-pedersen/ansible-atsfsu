@@ -1,6 +1,13 @@
 [webservers:children]
 fresca
 
+[test:children]
+fresca-test
+
+[production:children]
+fresca-production
+
+
 [fresca:children]
 fresca-test
 fresca-production
@@ -10,3 +17,6 @@ fresca.test.at.sfsu.edu
 
 [fresca-production]
 fresca.calstate.edu
+
+
+

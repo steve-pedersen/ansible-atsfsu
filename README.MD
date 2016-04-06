@@ -8,3 +8,5 @@ To deploy the Fresca application to its test server:
 $ ansible-playbook master.yml -i inventory --limit "fresca-test" --ask-vault-pass
 
 $ ansible-playbook master.yml -i inventory --limit "fresca-test" --ask-vault-pass --check
+
+$ ansible-playbook master.yml -i inventory --limit "fresca-test" --ask-vault-pass --tags "taggy"

@@ -2,5 +2,7 @@
 # fresca-test specific variables
 
 # used to trigger test specific tasks within roles shared with production
+app_name: fresca
+instance: test
 test: true
 production: false

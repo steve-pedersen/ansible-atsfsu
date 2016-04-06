@@ -19,5 +19,6 @@
 # Finish remaining tasks
 #
 
-# - debug: msg="success! {{app_name}}"
-#   tags: taggy
+
+- debug: var=app_name
+  tags: taggy

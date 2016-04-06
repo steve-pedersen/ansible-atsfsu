@@ -2,5 +2,7 @@
 # fresca-production specific variables
 
 # used to trigger production specific tasks within roles shared with test
+app_name: fresca
+instance: production
 production: true
 test: false

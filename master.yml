@@ -40,13 +40,13 @@
   gather_facts: no
   become: yes
   become_user:  root
-  roles:      
-    - { role: shibboleth,
-        when: "(({{ app_name }} == 'fresca') and (test))",
-        tags: ['shibboleth', 'shibboleth-fresca'] }
-    - { role: fresca,
-        when: "(({{ app_name }} == fresca) and (test))",
-        tags: ['fresca', 'fresca-test'] }
+  roles:
+    - role: shibboleth
+      when: test
+      tags: ['shibboleth', 'shibboleth-fresca']
+    - role: fresca
+      when: test
+      tags: ['fresca', 'fresca-test']
 
 
 - name: Configure and deploy Fresca application on Production
@@ -55,10 +55,22 @@
   become: yes
   become_user:  root
   roles:      
-    - { role: shibboleth,
-        when: "(({{ app_name }} == 'fresca') and (production))",
-        tags: ['shibboleth', 'shibboleth-fresca'] }
-    - { role: fresca,
-        when: "(({{ app_name }} == 'fresca') and (production))",
-        tags: ['fresca', 'fresca-production'] }
+    - role: shibboleth
+      when: production
+      tags: ['shibboleth', 'shibboleth-fresca']
+    - role: fresca
+      when: production
+      tags: ['fresca', 'fresca-production']
 
+# - name: Configure and deploy Fresca application on Test
+#   hosts:  fresca-test
+#   gather_facts: no
+#   become: yes
+#   become_user:  root
+#   roles:      
+#     - { role: shibboleth,
+#         when: "(({{ app_name }} == fresca) and (test))",
+#         tags: ['shibboleth', 'shibboleth-fresca'] }
+#     - { role: fresca,
+#         when: "(({{ app_name }} == fresca) and (test))",
+#         tags: ['fresca', 'fresca-test'] }

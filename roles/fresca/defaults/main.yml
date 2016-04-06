@@ -4,6 +4,10 @@
 apache_listen_port: 80
 apache_virtualhosts: 
   - fresca_test:
-    name: fresca
+    app_name: fresca
     hostname: fresca.test.at.sfsu.edu
+    docroot: /var/www
+  - fresca_production:
+    app_name: fresca
+    hostname: fresca.calstate.edu
     docroot: /var/www
