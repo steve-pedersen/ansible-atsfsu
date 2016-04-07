@@ -1,45 +1,26 @@
 ---
 # Playbook for Apache-Fresca virtual host configuration
-- include_vars: test-secrets.yml
-- include_vars: prod-secrets.yml
 
 
 # Copy SSL certs - file/key names set conditionally based on test or prod
-- name: Create certs folder test
+- name: Create certs folder
   file: path=/etc/apache2/certs state=directory mode=0755
   tags: certs
 
-- name: Copy SSLCertificateFile test
+- name: Copy SSLCertificateFile
   copy: 
-    content: "{{ test_cert_file }}"
-    dest: /etc/apache2/certs/{{ test_cert_file_filename }}
+    content: "{{ cert_file }}"
+    dest: /etc/apache2/certs/{{ cert_file_filename }}
     mode: 0644
-  when: test
   tags: certs
 
-- name: Copy SSLCertificateKeyFile test
+- name: Copy SSLCertificateKeyFile
   copy: 
-    content: "{{ test_cert_key }}"
-    dest: /etc/apache2/certs/{{ test_cert_key_filename }}
+    content: "{{ cert_key }}"
+    dest: /etc/apache2/certs/{{ cert_key_filename }}
     mode: 0600
-  when: test
   tags: certs
 
-- name: Copy SSLCertificateFile production
-  copy: 
-    content: "{{ prod_cert_file }}"
-    dest: /etc/apache2/certs/{{ prod_cert_file_filename }}
-    mode: 0644
-  when: production
-  tags: certs
-
-- name: Copy SSLCertificateKeyFile production
-  copy: 
-    content: "{{ prod_cert_key }}"
-    dest: /etc/apache2/certs/{{ prod_cert_key_filename }}
-    mode: 0600
-  when: production
-  tags: certs
 
 
 # Copy virtual host file and enable site

@@ -4,11 +4,24 @@
 # uses the string of hostname up until the first "."
 app_name: "{{ inventory_hostname_short }}"
 
+#
+# SSL
+#
+cert_file_filename: fresca.test.at.sfsu.edu.2016.cer
+cert_key_filename: fresca.test.at.sfsu.edu.2016.key
+
+
+#
+# Shibboleth
+#
 shib_required: true
 entity_id: https://idp-test.sfsu.edu/shibboleth
 metadata_provider_path: /etc/shibboleth/idp-nash-metadata.xml
 
+
+#
 # used to trigger test specific tasks within roles shared with production
+#
 fresca: true
 instance: test
 test: true
