@@ -6,7 +6,7 @@
 # Package manager installations
 # 
 - name: Run apt-get update and upgrade
-  apt:  upgrade=yes cache_valid_time=3600
+  apt:  upgrade=yes update_cache=yes cache_valid_time=3600
   notify: restart apache2
   tags: apt
 

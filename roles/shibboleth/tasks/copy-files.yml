@@ -3,22 +3,32 @@
 
 
 #
+# All
+#
+- name: Run shib-keygen to generate pems
+  command: shib-keygen
+  register: pem
+  failed_when: "'already exist' in pem.stdout"
+
+- name: Creating shibboleth2 xml file based on environment
+  template: 
+    src: shibboleth2.xml.j2
+    dest: /etc/shibboleth/shibboleth2.xml
+    mode: 0644
+
+
+#
 # Test
 #
-- name: Copy all test shibboleth files
+- name: Copy test-metadata attribute-map etc.
   copy: src=test/ dest=/etc/shibboleth
   when: test
-
 
 
 #
 # Production
 #
-
 - name: Copy all production shibboleth files
   copy: src=prod/ dest=/etc/shibboleth
   when: production
-
-
-
 

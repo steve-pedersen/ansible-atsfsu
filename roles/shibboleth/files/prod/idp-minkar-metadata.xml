@@ -1,0 +1,117 @@
+<EntityDescriptor entityID="https://idp.sfsu.edu/idp/shibboleth"
+                  xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+                  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                  xmlns:shibmd="urn:mace:shibboleth:metadata:1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <IDPSSODescriptor protocolSupportEnumeration="urn:mace:shibboleth:1.0 urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+
+        <Extensions>
+            <shibmd:Scope regexp="false">sfsu.edu</shibmd:Scope>
+        </Extensions>
+
+        <KeyDescriptor>
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIDGzCCAgOgAwIBAgIUaVXwsxeZ7HtpgzDRqkb/SXmxNCUwDQYJKoZIhvcNAQEF
+BQAwFzEVMBMGA1UEAxMMaWRwLnNmc3UuZWR1MB4XDTEwMDExMjE3NTg0OVoXDTMw
+MDExMjE3NTg0OVowFzEVMBMGA1UEAxMMaWRwLnNmc3UuZWR1MIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnM2TW44FPEMlaZShdBub38iLLGtpvvtTZVvC
+tLo6xRQx0YCPYIQua2hxjf5lYFMe2KlwehxuCfujsTbegBX8TNg86NaN2s5iTFk7
+Q7BKY0o1UGEHhmELKZx/BVSH1AB0qwk1ZF9jGyynTITRwRGsr1yLvFM3aTH1tB4s
+iMpTTp7U4HfWcfCsAepxVJw8o8Nvgujgi6E8Mh4emTz+PdNmx0cgpiu7EpvruUEk
+ELlHifyFRhCCBUeOtxgsJXvXgqIYxLlxcz7aGnsylTCgX8fN2WABkJte90Cv06EU
+mkCnB4x8pKLxSfVkLDRDImpqPwnTjmizD6neSRQ5ano4qdAm9wIDAQABo18wXTA8
+BgNVHREENTAzggxpZHAuc2ZzdS5lZHWGI2h0dHBzOi8vaWRwLnNmc3UuZWR1L2lk
+cC9zaGliYm9sZXRoMB0GA1UdDgQWBBT7bbal9a/eJjoYsQd6Stdkk9D6uTANBgkq
+hkiG9w0BAQUFAAOCAQEAB2UmDPQkEVR8YPNCUZS2+XjA5Pw7vdswtZpqLbN4x2RG
+AFnaUFs4Qw5/9RScVOdfuSKjbB32LSJzOTLUc2LA2zUhAcieprD9wBcW2gIVnpPC
+PQxMSI7vD7YuF6erW/qFh+gZwBod/PPmP30wy4uDAcWfW09f79wWv67v8ePXS/PA
+Ww8M8pNXffLcYo8NAdTY1ZddhYsqcAduFzL4Q0u/+QpV4K2qpMOK57sJ/4GuI0i4
+TF+IPVqP9ibO/PX7scYZDBm8wGCQ3G3UwADAQxJlSTJzyP7PthgH3ublYb3IbrY6
+OQKTDUHTSx//VpESlGrhleDG/BalOfbtxZka2UF05A==
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+
+        <ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding"
+                                   Location="https://idp.sfsu.edu:8443/idp/profile/SAML1/SOAP/ArtifactResolution"
+                                   index="1"/>
+
+        <ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                                   Location="https://idp.sfsu.edu:8443/idp/profile/SAML2/SOAP/ArtifactResolution"
+                                   index="2"/>
+
+            <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                                         Location="https://idp.sfsu.edu/idp/profile/SAML2/Redirect/SLO"
+                                                         ResponseLocation="https://idp.sfsu.edu/idp/profile/SAML2/Redirect/SLO"/>
+
+            <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                                     Location="https://idp.sfsu.edu/idp/profile/SAML2/POST/SLO"
+                                                         ResponseLocation="https://idp.sfsu.edu/idp/profile/SAML2/POST/SLO"/>
+
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                                                         Location="https://idp.sfsu.edu/idp/profile/SAML2/SOAP/SLO" />
+
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+        <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest"
+                             Location="https://idp.sfsu.edu/idp/profile/Shibboleth/SSO" />
+
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                             Location="https://idp.sfsu.edu/idp/profile/SAML2/POST/SSO" />
+
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign"
+                             Location="https://idp.sfsu.edu/idp/profile/SAML2/POST-SimpleSign/SSO" />
+
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                             Location="https://idp.sfsu.edu/idp/profile/SAML2/Redirect/SSO" />
+    </IDPSSODescriptor>
+
+    <AttributeAuthorityDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+
+        <Extensions>
+            <shibmd:Scope regexp="false">sfsu.edu</shibmd:Scope>
+        </Extensions>
+
+        <KeyDescriptor>
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIDGzCCAgOgAwIBAgIUaVXwsxeZ7HtpgzDRqkb/SXmxNCUwDQYJKoZIhvcNAQEF
+BQAwFzEVMBMGA1UEAxMMaWRwLnNmc3UuZWR1MB4XDTEwMDExMjE3NTg0OVoXDTMw
+MDExMjE3NTg0OVowFzEVMBMGA1UEAxMMaWRwLnNmc3UuZWR1MIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnM2TW44FPEMlaZShdBub38iLLGtpvvtTZVvC
+tLo6xRQx0YCPYIQua2hxjf5lYFMe2KlwehxuCfujsTbegBX8TNg86NaN2s5iTFk7
+Q7BKY0o1UGEHhmELKZx/BVSH1AB0qwk1ZF9jGyynTITRwRGsr1yLvFM3aTH1tB4s
+iMpTTp7U4HfWcfCsAepxVJw8o8Nvgujgi6E8Mh4emTz+PdNmx0cgpiu7EpvruUEk
+ELlHifyFRhCCBUeOtxgsJXvXgqIYxLlxcz7aGnsylTCgX8fN2WABkJte90Cv06EU
+mkCnB4x8pKLxSfVkLDRDImpqPwnTjmizD6neSRQ5ano4qdAm9wIDAQABo18wXTA8
+BgNVHREENTAzggxpZHAuc2ZzdS5lZHWGI2h0dHBzOi8vaWRwLnNmc3UuZWR1L2lk
+cC9zaGliYm9sZXRoMB0GA1UdDgQWBBT7bbal9a/eJjoYsQd6Stdkk9D6uTANBgkq
+hkiG9w0BAQUFAAOCAQEAB2UmDPQkEVR8YPNCUZS2+XjA5Pw7vdswtZpqLbN4x2RG
+AFnaUFs4Qw5/9RScVOdfuSKjbB32LSJzOTLUc2LA2zUhAcieprD9wBcW2gIVnpPC
+PQxMSI7vD7YuF6erW/qFh+gZwBod/PPmP30wy4uDAcWfW09f79wWv67v8ePXS/PA
+Ww8M8pNXffLcYo8NAdTY1ZddhYsqcAduFzL4Q0u/+QpV4K2qpMOK57sJ/4GuI0i4
+TF+IPVqP9ibO/PX7scYZDBm8wGCQ3G3UwADAQxJlSTJzyP7PthgH3ublYb3IbrY6
+OQKTDUHTSx//VpESlGrhleDG/BalOfbtxZka2UF05A==
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+
+        <AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding"
+                          Location="https://idp.sfsu.edu:8443/idp/profile/SAML1/SOAP/AttributeQuery" />
+
+        <AttributeService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                          Location="https://idp.sfsu.edu:8443/idp/profile/SAML2/SOAP/AttributeQuery" />
+
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+    </AttributeAuthorityDescriptor>
+
+</EntityDescriptor>
