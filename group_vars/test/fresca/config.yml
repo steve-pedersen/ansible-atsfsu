@@ -7,6 +7,7 @@ app_name: "{{inventory_hostname_short}}"
 shib_required: true
 
 # used to trigger test specific tasks within roles shared with production
+fresca: true
 instance: test
 test: true
 production: false

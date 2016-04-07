@@ -8,17 +8,6 @@
 
 
 #
-# Play for common tasks that apply to all nodes 
-#
-# - name: apply configuration to all nodes
-#   hosts:  all
-#   remote_user:  root
-#   roles:
-#     - common
-
-
-
-#
 # Play for deployment of AT PHP Framework based applications
 #
 - name: Configure and deploy content for PHP applications
@@ -27,7 +16,8 @@
   become: yes
   become_user:  root
   roles:    
-    - {role: php_app, tags: php_app }
+    - role: php_app 
+      tags: php_app
 
 
 
@@ -42,10 +32,9 @@
   become_user:  root
   roles:
     - role: shibboleth
-      when: test
+      when: shib_required
       tags: ['shibboleth', 'shibboleth-fresca']
     - role: fresca
-      when: test
       tags: ['fresca', 'fresca-test']
 
 
@@ -56,21 +45,8 @@
   become_user:  root
   roles:      
     - role: shibboleth
-      when: production
+      when: shib_required
       tags: ['shibboleth', 'shibboleth-fresca']
     - role: fresca
-      when: production
       tags: ['fresca', 'fresca-production']
 
-# - name: Configure and deploy Fresca application on Test
-#   hosts:  fresca-test
-#   gather_facts: no
-#   become: yes
-#   become_user:  root
-#   roles:      
-#     - { role: shibboleth,
-#         when: "(({{ app_name }} == fresca) and (test))",
-#         tags: ['shibboleth', 'shibboleth-fresca'] }
-#     - { role: fresca,
-#         when: "(({{ app_name }} == fresca) and (test))",
-#         tags: ['fresca', 'fresca-test'] }
