@@ -1,0 +1,36 @@
+---
+#
+# Fresca is weird, which is why there are "special" shib tasks that it gets to do:
+#
+# Fresca Test
+- name: Copy all test shibboleth files
+  copy: src=fresca_test/ dest=/etc/shibboleth
+  when: fresca and test
+#
+# Fresca Production
+- name: Copy all production shibboleth files
+  copy: src=fresca_prod/ dest=/etc/shibboleth
+  when: fresca and production
+#
+# Fresca All
+- name: Copy incommon pem
+  copy: 
+    content: "{{ incommon_pem }}"
+    dest: /etc/shibboleth/incommon.pem
+    mode: 0644
+  when: fresca
+
+- name: Copy sp-cert pem
+  copy: 
+    content: "{{ sp_cert_pem }}"
+    dest: /etc/shibboleth/sp-cert.pem
+    mode: 0644
+  when: fresca
+
+- name: Copy sp-key pem
+  copy: 
+    content: "{{ sp_key_pem }}"
+    dest: /etc/shibboleth/sp-key.pem
+    mode: 0644
+  notify: restart shibd
+  when: fresca

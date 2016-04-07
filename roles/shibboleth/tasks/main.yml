@@ -4,5 +4,8 @@
 
 - include: install-packages.yml     # shibboleth specific packages
   tags: packages
+- include: copy-fresca-files.yml    # fresca only
+  when: fresca
+  tags: pems
 - include: copy-files.yml           # shib files and pems
   tags: pems
