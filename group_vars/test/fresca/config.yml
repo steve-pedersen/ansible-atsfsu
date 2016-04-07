@@ -1,8 +1,12 @@
 ---
 # fresca-test specific variables
 
+# uses the string of hostname up until the first "."
+app_name: "{{inventory_hostname_short}}"
+
+shib_required: true
+
 # used to trigger test specific tasks within roles shared with production
-app_name: fresca
 instance: test
 test: true
 production: false

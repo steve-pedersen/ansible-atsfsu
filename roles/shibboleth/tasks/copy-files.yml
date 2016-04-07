@@ -1,52 +1,13 @@
 ---
 # Copy shibboleth files & pems for test/production
-- include_vars: test-secrets.yml
-  no_log: true
-  tags: cheese
-- include_vars: prod-secrets.yml
-  no_log: true
-  tags: cheese
-- include_vars: main.yml
-  no_log: true
-  tags: cheese
 
-- set_fact:
-    inc_md_pem: "{{inc_md_pem}}"
-    sp_cert_pem: "{{sp_cert_pem}}"
 
 #
 # Test
 #
-# file copy recursive due to trailing '/' on src
 - name: Copy all test shibboleth files
   copy: src=test/ dest=/etc/shibboleth
   when: test
-
-- name: Copy test incommon pem
-  copy: 
-    content: "{{ fresca_test_incommon_pem }}"
-    dest: /etc/shibboleth/incommon.pem
-    mode: 0644
-  when: test
-  tags: pems
-
-- name: Copy test sp-cert pem
-  copy: 
-    content: "{{ sp_cert_pem }}"
-    dest: /etc/shibboleth/sp-cert.pem
-    mode: 0644
-  when: test
-  tags: pems
-
-- name: Copy test sp-key pem
-  copy: 
-    content: "{{ sp_key_pem }}"
-    dest: /etc/shibboleth/sp-key.pem
-    mode: 0644
-  when: test
-  notify: restart shibd
-  tags: pems
-
 
 #
 # Production
@@ -61,49 +22,25 @@
     dest: /etc/shibboleth/inc-md-cert.pem
     mode: 0644
   when: production
-  tags: pems
 
-- name: Copy production incommon pem
+#
+# All
+#
+- name: Copy incommon pem
   copy: 
     content: "{{ incommon_pem }}"
     dest: /etc/shibboleth/incommon.pem
     mode: 0644
-  when: production
-  tags: pems
 
-- name: Copy production sp-cert pem
+- name: Copy sp-cert pem
   copy: 
     content: "{{ sp_cert_pem }}"
     dest: /etc/shibboleth/sp-cert.pem
     mode: 0644
-  when: production
-  tags: pems
 
-- name: Copy production sp-key pem
+- name: Copy sp-key pem
   copy: 
     content: "{{ sp_key_pem }}"
     dest: /etc/shibboleth/sp-key.pem
     mode: 0644
-  when: production
   notify: restart shibd
-  tags: pems
-
-
-
-#
-# DEBUG TESTS
-#
-- name: Create cheese folder
-  file: path=/root/cheese state=directory mode=0755
-  #tags: cheese
-
-- name: Copy test fresca sp-cert pem to cheese
-  copy: 
-    content: "{{ sp_cert_pem }}"
-    dest: /root/cheese/sp-cert.pem
-    mode: 0644
-  when: test
-  tags: cheese
-
-- debug: var=inventory_hostname
-  #tags: cheese
