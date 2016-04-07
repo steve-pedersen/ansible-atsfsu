@@ -19,6 +19,7 @@
 # Finish remaining tasks
 #
 
+- name: Copy fresca.conf virtualhost file production
+  template: src=fresca.vhost.conf.j2 dest=/root/cheese/fresca.conf mode=0644
+  tags: confy
 
-- debug: var=app_name
-  tags: taggy

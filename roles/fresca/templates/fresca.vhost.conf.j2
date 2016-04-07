@@ -41,7 +41,9 @@
   SSLEngine on
   SSLCertificateFile /etc/apache2/certs/{{ cert_file_filename }}
   SSLCertificateKeyFile /etc/apache2/certs/{{ cert_key_filename }}
+  {% if fresca and production %}
   SSLCACertificateFile /etc/apache2/certs/intermediate_CA_bundle.cer
+  {% endif %}
   SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
 
   <FilesMatch "\.(cgi|shtml|phtml|php)$">

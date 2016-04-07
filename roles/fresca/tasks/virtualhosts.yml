@@ -24,16 +24,11 @@
 
 
 # Copy virtual host file and enable site
-- name: Copy fresca.conf virtualhost file test
-  template: src=fresca.vhost-test.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
-  when: test
-
 - name: Copy fresca.conf virtualhost file production
-  template: src=fresca.vhost-prod.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
-  when: production
+  template: src=fresca.vhost.conf.j2 dest=/etc/apache2/sites-available/fresca.conf mode=0644
 
 - name: Enable fresca virtualhost file
-  command: a2ensite fresca
+  command: a2ensite {{ app_name }}
 
 - name: Check that our config is valid
   command: apache2ctl configtest
@@ -45,7 +40,7 @@
   when: result|failed
 
 - name: Rolling back - Removing our virtualhost
-  command: a2dissite fresca
+  command: a2dissite {{ app_name }}
   when: result|failed
 
 - name: Rolling back - Ending playbook
