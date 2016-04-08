@@ -1,0 +1,13 @@
+---
+# default values for fresca
+
+apache_listen_port: 80
+apache_virtualhosts: 
+  - new_app_test:
+    app_name: "{{ inventory_hostname_short }}"
+    hostname: "{{ inventory_hostname }}"
+    docroot: /var/www
+  - new_app_production:
+    app_name: "{{ inventory_hostname_short }}"
+    hostname: "{{ inventory_hostname }}"
+    docroot: /var/www

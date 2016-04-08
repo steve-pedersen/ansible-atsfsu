@@ -1,0 +1,10 @@
+---
+# Non-sensitive variables
+
+new_app_packages:
+  - php5-gd
+  - imagemagick
+  - php5-imagick
+  - markdown
+  - libmarkdown-php
+  - gcc

@@ -1,0 +1,58 @@
+---
+# Playbook for Apache-new_app virtual host configuration
+
+
+# Copy SSL certs - file/key names set conditionally based on test or prod
+- name: Create certs folder
+  file: path=/etc/apache2/certs state=directory mode=0755
+  tags: certs
+
+- name: Copy SSLCertificateFile
+  copy: 
+    content: "{{ cert_file }}"
+    dest: /etc/apache2/certs/{{ cert_file_filename }}
+    mode: 0644
+  tags: certs
+
+- name: Copy SSLCertificateKeyFile
+  copy: 
+    content: "{{ cert_key }}"
+    dest: /etc/apache2/certs/{{ cert_key_filename }}
+    mode: 0600
+  tags: certs
+
+
+
+# Copy virtual host file and enable site
+- name: Copy new_app.conf virtualhost file production
+  template: 
+    src: "{{ app_name }}.vhost.conf.j2"
+    dest: "/etc/apache2/sites-available/{{ app_name }}.conf"
+    mode: 0644
+
+- name: Enable new_app virtualhost file
+  command: a2ensite {{ app_name }}
+
+- name: Check that our config is valid
+  command: apache2ctl configtest
+  register: result
+  ignore_errors: True
+
+- name: Rolling back - Restoring old default virtualhost
+  command: a2ensite 000-default
+  when: result|failed
+
+- name: Rolling back - Removing our virtualhost
+  command: a2dissite {{ app_name }}
+  when: result|failed
+
+- name: Rolling back - Ending playbook
+  fail: msg="Configuration file is not valid. Please check that before re-running the playbook."
+  when: result|failed
+
+- name: Deactivates the default virtualhost
+  command: a2dissite 000-default
+
+- name: Deactivates the default ssl virtualhost
+  command: a2dissite default-ssl
+  notify: restart apache2

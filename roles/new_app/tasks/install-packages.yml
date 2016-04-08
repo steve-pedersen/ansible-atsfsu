@@ -1,0 +1,18 @@
+---
+# new_app specific packages
+
+
+#
+# Package manager installations
+# 
+- name: Run apt-get update and upgrade
+  apt:  upgrade=yes update_cache=yes cache_valid_time=3600
+  notify: restart apache2
+  tags: apt
+
+- name: Install new_app packages
+  apt:  name={{ item }} update_cache=yes state=present cache_valid_time=3600
+  with_items: "{{ new_app_packages }}"
+  notify: restart apache2
+  tags: apt
+

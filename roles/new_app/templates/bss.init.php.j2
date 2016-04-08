@@ -1,0 +1,5 @@
+<?php
+
+define('BSS_FWK_PATH', '/var/www/framework');
+define('BSS_APP_CONFIG_FILE', '/var/www/{{ app_name }}/var/app.conf');
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . BSS_FWK_PATH);

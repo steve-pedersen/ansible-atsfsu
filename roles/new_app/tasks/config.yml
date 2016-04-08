@@ -1,0 +1,27 @@
+---
+# Remaining configuration for new_app site
+
+
+- name: Copy bss-init file
+  template: 
+    src: bss.init.php.j2
+    dest: /var/www/{{ app_name }}/public/bss.init.php
+    mode: 0644
+
+- name: Copy app.conf file test
+  template: 
+    src: "{{ app_name }}.test.conf.j2"
+    dest: /var/www/{{ app_name }}/var/app.conf
+    mode: 0755
+  when: test
+
+- name: Copy app.conf file production
+  template: 
+    src: "{{ app_name }}.prod.conf.j2"
+    dest: /var/www/{{ app_name }}/var/app.conf
+    mode: 0755
+  when: production
+
+- name: Update var directory permissions
+  command: "chmod -R 0777 /var/www/{{ app_name }}/var warn=no"
+  #notify: run scan

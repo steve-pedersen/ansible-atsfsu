@@ -1,0 +1,76 @@
+<Directory /var/www/{% if fresca %}catalog{% else %}{{ app_name }}{% endif %}/public>
+        RewriteEngine on
+        {% if production %}
+        RewriteBase /
+        {% endif %}
+
+{% if production %}
+  # Force calstate.edu address
+  RewriteCond %{HTTP_HOST} !^{{ inventory_hostname }}$
+  RewriteRule ^/?(.*)$ {{ inventory_hostname }}/$1 [L,QSA,R=permanent]
+{% endif %}
+
+        # Force SSL
+        RewriteCond %{HTTPS} ^off$
+        RewriteRule ^/?(.*)$ https://%{SERVER_NAME}/$1 [L,QSA,R=permanent]
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_URI} !^/Shibboleth.sso
+        RewriteRule ^(.*)$ index.php?_path=$1 [L,QSA]
+</Directory>
+
+<VirtualHost *:80>
+  ServerAdmin tjudd@sfsu.edu
+  DocumentRoot /var/www/{% if fresca %}catalog{% else %}{{ app_name }}{% endif %}/public
+  ErrorLog /var/log/apache2/error.log
+  LogLevel warn
+
+  CustomLog /var/log/apache2/access.log combined
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+<VirtualHost _default_:443>
+  ServerAdmin tjudd@sfsu.edu
+
+  DocumentRoot /var/www/{% if fresca %}catalog{% else %}{{ app_name }}{% endif %}/public
+  ErrorLog /var/log/apache2/error.log
+  LogLevel warn
+  CustomLog /var/log/apache2/ssl_access.log combined
+
+  SSLEngine on
+  SSLCertificateFile /etc/apache2/certs/{{ cert_file_filename }}
+  SSLCertificateKeyFile /etc/apache2/certs/{{ cert_key_filename }}
+  {% if fresca and production %}
+  SSLCACertificateFile /etc/apache2/certs/intermediate_CA_bundle.cer
+  {% endif %}
+  SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
+
+  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
+  </FilesMatch>
+  <Directory /usr/lib/cgi-bin>
+          SSLOptions +StdEnvVars
+  </Directory>
+
+{% if shib_required %}
+  <IfModule mod_shib2.c>
+    <LocationMatch "^/login/complete/[a-zA-Z0-9]+-shib$">
+        AuthType shibboleth
+        ShibRedirectToSSL 443
+        ShibRequireSession On
+        ShibUseHeaders On
+        require valid-user
+    </LocationMatch>
+  </IfModule>
+{% endif %}
+
+  BrowserMatch "MSIE [2-6]" \
+          nokeepalive ssl-unclean-shutdown \
+          downgrade-1.0 force-response-1.0
+  # MSIE 7 and newer should be able to use keepalive
+  BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+
+</VirtualHost>
+</IfModule>
+

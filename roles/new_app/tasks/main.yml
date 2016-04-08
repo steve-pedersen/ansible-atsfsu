@@ -1,0 +1,20 @@
+---
+# Playbook for new_app
+
+
+
+- include: install-packages.yml   # new_app specific packages
+  tags: packages
+- include: git.yml                # clone fresca repo
+  tags: git
+- include: virtualhosts.yml       # transfer ssl certs, enable virtual host
+  tags: vhost
+- include: postgres.yml           # createdb
+  tags: postgres
+- include: config.yml             # remaining tasks
+  tags: config
+
+
+#
+# Finish remaining tasks
+#

@@ -1,0 +1,56 @@
+{
+  "appName":"{{ app_name|capitalize }}",
+  "appKey": "e071c6ed-6e08-4ac3-9a36-46d51cadcf8c",
+  "colophon": "\/var\/www\/{{ app_name }}\/var\/colophon.conf",
+  "xapianDatabasePath": "\/var\/www\/{{ app_name }}\/var\/xapian",
+  "siteNotice": "",
+  
+  "paths": {
+      "app": {
+          "base": "\/var\/www\/{{ app_name }}",
+          "web": "public",
+          "var": "var",
+          "holding": "var/holding",
+          "repository": "var/repository"
+      }
+  },
+  "templates": {
+    "bss:core:password": {
+      "acceptPassword": "at:{{ app_name }}:authn/acceptPassword"
+    }
+  },
+  "mail": {
+      "from": "pedersen@mail.sfsu.edu",
+      "fromName": "{{ app_name|capitalize }}-{{ instance|capitalize }}",
+      "method": "mail"
+  },
+  "dataSources": {
+      "default": {
+          "connectionType": "pgsql",
+          "dsn": "dbname={{ app_name }} user=apps"
+      }
+  },
+  "identityProviders": {
+      
+      "sfsu-pw": {
+          "displayName": "San Francisco State University (legacy)",
+          "impl": "Bss_PasswordAuthentication_IdentityProvider"
+      }
+  },
+  "moduleSearchPaths": ["\/var\/www\/framework\/bss\/modules","\/var\/www\/{{ app_name }}\/modules"],
+  "runMode":1,
+  "authorizationSourceList": {
+     "default": {
+         "className": "Bss_AuthZ_PersistentPermissionSource"
+     }
+ },
+  "templates": {
+   "bss:core:password": {
+     "acceptPassword": "at:dsp:authn/acceptPassword"
+   }
+ },
+ "impl": {
+      "masterTemplate": "{{ app_name|capitalize }}_Master_Template",
+      "userContext": "{{ app_name|capitalize }}_Master_UserContext"
+  }
+}

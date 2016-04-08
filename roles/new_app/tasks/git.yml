@@ -1,0 +1,16 @@
+---
+# Git related tasks for Fresca
+
+
+- name: Remove the new_app directory
+  file: 
+    path: /var/www/{{ app_name }}
+    state: absent 
+    force: yes
+
+- name: Git clone of framework repo
+  git:
+    repo: git@git.at.sfsu.edu:{{new_app}}.git
+    dest: /var/www/{{ app_name }}
+    clone: yes 
+    accept_hostkey: yes

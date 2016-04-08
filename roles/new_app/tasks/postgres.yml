@@ -1,0 +1,45 @@
+---
+# Tasks for new_app database
+
+
+# Ansible requires these modules on remote node in order to user postgres
+- name: Install prerequisites for postgres to be setup by ansible
+  apt: name={{ item }} update_cache=yes state=present cache_valid_time=3600
+  with_items:
+    - libpq-dev
+    - python-psycopg2
+  register: python_prereqs
+  tags: pg-packages
+
+
+# CreateDB app_name, createUser app_name
+- name: DropDB first
+  postgresql_db: 
+    name: "{{ app_name }}"
+    login_user: apps 
+    state: absent
+
+- name: Add postgreSQL app_name role
+  postgresql_user: "name={{ app_name }} role_attr_flags=SUPERUSER"
+  become: true
+  become_user: postgres
+  notify: restart postgres
+
+- name: Create app_name database
+  postgresql_db:
+    name: "{{ app_name }}"
+    login_user: apps
+    template: 'template0'
+    encoding: 'UNICODE'
+  notify: restart postgres
+
+
+
+# Manual removal of these packages. they are not needed
+# - name: Uninstall python modules used by ansible for postgres plays
+#   apt: name={{ item }} update_cache=yes state=absent
+#   with_items:
+#     - libpq-dev
+#     - python-psycopg2
+#   when: python_prereqs|changed or app_name
+#   tags: pg-packages

@@ -1,0 +1,16 @@
+---
+# Handler for new_app role
+
+
+
+- name: restart postgres
+  service: name=postgresql state=restarted
+
+- name: restart shibd
+  service: name=shibd state=restarted
+
+- name: restart apache2
+  service: name=apache2 state=restarted
+
+- name: run scan
+  shell: "cd /var/www/{{app_name}} && ./scan"
