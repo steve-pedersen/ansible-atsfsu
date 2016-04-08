@@ -1,0 +1,27 @@
+---
+# new_app-production specific variables
+# change variables as needed
+
+# uses the string of hostname up until the first "."
+app_name: "{{ inventory_hostname_short }}"
+
+#
+# SSL
+#
+cert_file_filename: "{{ app_name }}.sfsu.edu.2015.cer"
+cert_key_filename: "{{ app_name }}.sfsu.edu.2015.key"
+
+#
+# Shibboleth
+#
+shib_required: true
+entity_id: https://idp.sfsu.edu/idp/shibboleth
+metadata_provider_path: /etc/shibboleth/idp-minkar-metadata.xml
+
+#
+# Control/trigger variables
+#
+new_app: true
+instance: production
+production: true
+test: false
