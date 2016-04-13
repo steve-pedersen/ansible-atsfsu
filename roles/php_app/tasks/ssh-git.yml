@@ -25,10 +25,6 @@
 #
 # Git
 #
-- name: Remove the framework directory
-  file: path=/var/www/framework state=absent force=yes
-  tags: framework
-
 - name: Git clone of framework repo
-  git:  repo=git@git.at.sfsu.edu:framework.git  dest=/var/www/framework  clone=yes accept_hostkey=yes
+  git:  repo=git@git.at.sfsu.edu:framework.git  dest=/var/www/framework  accept_hostkey=yes
   tags: framework
