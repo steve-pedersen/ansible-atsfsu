@@ -1,5 +1,5 @@
 ---
-
+# Currently not being used. Examples of host-specific variables, if group_vars not specific enough.
 # SSL certs
 test_cert_file_filename: fresca.test.at.sfsu.edu.2016.cer
 test_cert_key_filename: fresca.test.at.sfsu.edu.2016.key
