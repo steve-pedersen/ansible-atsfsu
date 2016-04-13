@@ -1,0 +1,9 @@
+---
+# Main playbook to build the xapian binary packages from source, due to incompatibility with the GPL & PHP licenses.
+# The install script replicates the steps outlined here: http://trac.xapian.org/wiki/FAQ/PHP%20Bindings%20Package
+
+
+- include:  install.yml               # Build binary and install
+  tags: ['packages', 'php5-xapian']
+- include:  config.yml                # Remaining configuration
+  tags: ['php5-xapian']

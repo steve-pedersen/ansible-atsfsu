@@ -1,0 +1,9 @@
+---
+# Non-sensitive variables
+
+
+# Required for binary package build of php5-xapian
+xapian_dependencies:
+  - php5-dev
+  - php5-cli
+  - devscripts

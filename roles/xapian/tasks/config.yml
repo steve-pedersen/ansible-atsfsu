@@ -1,0 +1,8 @@
+---
+
+- name: Replace the SWIG generated xapian.php file with own
+  copy:
+    src:  xapian.php
+    dest: /usr/share/php/xapian.php
+    mode: 0644
+  notify: restart apache2

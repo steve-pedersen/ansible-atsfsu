@@ -36,6 +36,8 @@
       tags: ['shibboleth', 'shibboleth-fresca']
     - role: fresca
       tags: ['fresca', 'fresca-test']
+    - role: xapian
+      tags: xapian
 
 
 - name: Configure and deploy Fresca application on Production
@@ -49,4 +51,5 @@
       tags: ['shibboleth', 'shibboleth-fresca']
     - role: fresca
       tags: ['fresca', 'fresca-production']
-
+    - role: xapian
+      tags: xapian
